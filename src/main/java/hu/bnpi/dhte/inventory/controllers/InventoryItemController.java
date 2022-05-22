@@ -1,36 +1,64 @@
 package hu.bnpi.dhte.inventory.controllers;
 
-import hu.bnpi.dhte.inventory.entities.inventoryitem.InventoryItem;
-import hu.bnpi.dhte.inventory.entities.inventoryitem.ItemType;
+import hu.bnpi.dhte.inventory.dtos.CreateInventoryItemCommand;
+import hu.bnpi.dhte.inventory.dtos.InventoryItemDTO;
+import hu.bnpi.dhte.inventory.dtos.UpdateInventoryItemCommand;
 import hu.bnpi.dhte.inventory.services.InventoryItemService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
+@Slf4j
+@RestController
+@RequestMapping("/api/inventoryitems")
 public class InventoryItemController {
 
-    private final InventoryItemService inventoryItemService;
+    private InventoryItemService service;
 
-    public InventoryItemController(InventoryItemService inventoryItemService) {
-        this.inventoryItemService = inventoryItemService;
+    public InventoryItemController(InventoryItemService service) {
+        this.service = service;
     }
 
-    public String saveInventoryItem(String inventoryId, ItemType itemType, String name, int amount) {
-        InventoryItem inventoryItem = new InventoryItem(inventoryId, itemType, name, amount);
-        return inventoryItemService.saveInventoryItem(inventoryItem);
+    @GetMapping
+    public List<InventoryItemDTO> listInventoryItems(@RequestParam Optional<String> substringOfName) {
+        return service.listInventoryItems(substringOfName);
     }
 
-    public String saveInventoryItem(String inventoryId, ItemType itemType, String name, String description, String serialNumber, int amount) {
-        InventoryItem inventoryItem = new InventoryItem(inventoryId, itemType, name, description, serialNumber, amount);
-        return inventoryItemService.saveInventoryItem(inventoryItem);
+    @GetMapping("/{id}")
+    public Optional<InventoryItemDTO> findInventoryItemById(@PathVariable("id") long id) {
+        Optional<InventoryItemDTO> item = Optional.empty();
+        try {
+           item = Optional.of(service.findInventoryItemById(id));
+        } catch (IllegalArgumentException iae) {
+            log.error(iae.getMessage());
+        }
+        return item;
     }
 
-    public String removeInventoryItem(String inventoryId) {
-            return inventoryItemService.removeInventoryItem(inventoryId);
+    @PostMapping(path = "/")
+    public InventoryItemDTO createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
+            return service.createInventoryItem(command);
     }
 
-    public String updateInventoryItemDescription(String inventoryId, String description) {
-        return inventoryItemService.updateInventoryItemDescription(inventoryId, description);
+    @PutMapping("/{id}")
+    public Optional<InventoryItemDTO> updateInventoryItem(@PathVariable("id") long id, @RequestBody UpdateInventoryItemCommand command) {
+        Optional<InventoryItemDTO> item = Optional.empty();
+        try {
+            return Optional.of(service.updateEmployee(id, command));
+        } catch (IllegalArgumentException iae) {
+            log.error(iae.getMessage());
+        }
+        return item;
     }
 
-    public String updateInventoryItemSerialNumber(String inventoryId, String serialNumber) {
-        return inventoryItemService.updateInventoryItemSerialNumber(inventoryId, serialNumber);
+    @DeleteMapping("/{id}")
+    public void deleteInventoryItem(@PathVariable("id") long id) {
+        try {
+            service.deleteInventoryItem(id);
+        } catch (IllegalArgumentException iae) {
+            log.error(iae.getMessage());
+        }
     }
 }

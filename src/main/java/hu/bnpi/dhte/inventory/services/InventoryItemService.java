@@ -1,115 +1,81 @@
 package hu.bnpi.dhte.inventory.services;
 
-import hu.bnpi.dhte.inventory.entities.inventoryitem.InventoryItem;
-import hu.bnpi.dhte.inventory.entities.inventoryitem.ItemType;
-import hu.bnpi.dhte.inventory.repositories.InventoryItemDao;
-import hu.bnpi.dhte.inventory.repositories.UpdateStringAttribute;
+import hu.bnpi.dhte.inventory.dtos.CreateInventoryItemCommand;
+import hu.bnpi.dhte.inventory.dtos.InventoryItemDTO;
+import hu.bnpi.dhte.inventory.dtos.UpdateInventoryItemCommand;
+import hu.bnpi.dhte.inventory.mappers.InventoryItemMapper;
+import hu.bnpi.dhte.inventory.models.InventoryItem;
+import hu.bnpi.dhte.inventory.repositories.InventoryItemRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class InventoryItemService {
 
-    private static final String ITEM_NOT_FOUND_MESSAGE = "Item not found with inventory id: ";
-    private static final String NOT_NULL_OR_EMPTY_MESSAGE = "Input parameters cannot be null or empty!";
+    private InventoryItemRepository repository;
 
-    private final InventoryItemDao inventoryItemDao;
+    private InventoryItemMapper mapper;
 
-    public InventoryItemService(InventoryItemDao inventoryItemDao) {
-        this.inventoryItemDao = inventoryItemDao;
+    public InventoryItemService(InventoryItemRepository repository, InventoryItemMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
     }
 
-    public String saveInventoryItem(InventoryItem inventoryItem) {
-        if (findInventoryItemByInventoryId(inventoryItem.getInventoryId()).isPresent()) {
-            return "There is already an item in the database with this inventory id: " + inventoryItem.getInventoryId();
-        }
-        if (inventoryItemDao.saveInventoryItem(inventoryItem).isEmpty()) {
-            return "Unable to save item to the database!";
-        }
-        return "Inventory item saved successfully with inventory id: " + inventoryItem.getInventoryId();
+    public InventoryItemDTO findInventoryItemById(Long id) {
+        return mapper.toInventoryItemDto(repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find item with id: " + id)));
     }
 
-    public String removeInventoryItem(String inventoryId) {
-        Optional<InventoryItem> inventoryItem = findInventoryItemByInventoryId(inventoryId);
-        if (inventoryItem.isEmpty()) {
-            return ITEM_NOT_FOUND_MESSAGE + inventoryId;
-        }
-        inventoryItemDao.removeInventoryItem(inventoryItem.get().getId());
-        return "Inventory item removed successfully with inventory id: " + inventoryId;
+    public List<InventoryItemDTO> listInventoryItems(Optional<String> substringOfName) {
+        List<InventoryItemDTO> items = mapper.toInventoryItemDto(repository.findAll());
+        return items.stream()
+                .filter(item -> substringOfName.isEmpty() || item.getName().toLowerCase().contains(substringOfName.get().toLowerCase()))
+                .toList();
     }
 
-    public String updateInventoryItemDescription(String inventoryId, String description) {
-        if (inputStringsAreNotValid(inventoryId, description)) {
-            return NOT_NULL_OR_EMPTY_MESSAGE;
+    public InventoryItemDTO createInventoryItem(CreateInventoryItemCommand command) {
+        InventoryItem item = new InventoryItem(command.getInventoryId(), command.getItemType(), command.getName());
+        if (isValidString(command.getDescription())) {
+            item.setDescription(command.getDescription());
         }
-        Optional<InventoryItem> inventoryItem = inventoryItemDao.findInventoryItemByInventoryId(inventoryId);
-        if (inventoryItem.isEmpty()) {
-            return ITEM_NOT_FOUND_MESSAGE + inventoryId;
+        if (isValidString(command.getSerialNumber())) {
+            item.setSerialNumber(command.getSerialNumber());
         }
-        UpdateStringAttribute updateDescription = InventoryItem::setDescription;
-        if (inventoryItemDao.updateInventoryItem(inventoryItem.get().getId(), description, updateDescription).isEmpty()) {
-            return "Unable to update item in the database!";
+        if (command.getAmount() > 0) {
+            item.setAmount(command.getAmount());
         }
-        return "Description of inventory item " + inventoryId + " updated successfully with '" + description + "'!";
+        item = repository.save(item);
+        return mapper.toInventoryItemDto(item);
     }
 
-    public String updateInventoryItemSerialNumber(String inventoryId, String serialNumber) {
-        if (inputStringsAreNotValid(inventoryId, serialNumber)) {
-            return NOT_NULL_OR_EMPTY_MESSAGE;
-        }
-        Optional<InventoryItem> inventoryItem = findInventoryItemByInventoryId(inventoryId);
-        if (inventoryItem.isEmpty()) {
-            return ITEM_NOT_FOUND_MESSAGE + inventoryId;
-        }
-        UpdateStringAttribute updateSerialNumber = InventoryItem::setSerialNumber;
-        if (inventoryItemDao.updateInventoryItem(inventoryItem.get().getId(), serialNumber, updateSerialNumber).isEmpty()) {
-            return "Unable to update item in the database!";
-        }
-        return "Serial number of inventory item " + inventoryId + " updated successfully with '" + serialNumber + "'!";
+    private boolean isValidString(String text) {
+         return text != null && !text.isBlank();
     }
 
-    public Optional<InventoryItem> findInventoryItemByInventoryId(String inventoryId) {
-        return inventoryItemDao.findInventoryItemByInventoryId(inventoryId);
-    }
-
-    public List<InventoryItem> listAllInventoryItems() {
-        return inventoryItemDao.listAllInventoryItems();
-    }
-
-    public List<InventoryItem> listInventoryItemsByName(String name) {
-        if (inputStringsAreNotValid(name)) {
-            throw new IllegalArgumentException(NOT_NULL_OR_EMPTY_MESSAGE);
+    public InventoryItemDTO updateEmployee(long id, UpdateInventoryItemCommand command) {
+        InventoryItem item = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find item with id: " + id));
+        if (isValidString(command.getName())) {
+            item.setName(command.getName());
         }
-        return inventoryItemDao.listInventoryItemByName(name);
-    }
-
-    public List<InventoryItem> listInventoryItemsByDescriptionSubstring(String subString) {
-        if (inputStringsAreNotValid(subString)) {
-            throw new IllegalArgumentException(NOT_NULL_OR_EMPTY_MESSAGE);
+        if (isValidString(command.getDescription())) {
+            item.setDescription(command.getDescription());
         }
-        return inventoryItemDao.listInventoryItemByDescriptionSubstring(subString);
-    }
-
-    public List<InventoryItem> listInventoryItemsByItemType(String itemType) {
-        ItemType type = createItemTypeByString(itemType);
-        return inventoryItemDao.listInventoryItemByItemType(type);
-    }
-
-    private ItemType createItemTypeByString(String itemType) {
-        if (inputStringsAreNotValid(itemType)) {
-            throw new IllegalArgumentException(NOT_NULL_OR_EMPTY_MESSAGE);
+        if (isValidString(command.getSerialNumber())) {
+            item.setSerialNumber(command.getSerialNumber());
         }
-        try {
-            return ItemType.valueOf(itemType.toUpperCase());
-        } catch (IllegalArgumentException iae) {
-            throw new IllegalArgumentException("Invalid type of item: " + itemType.toUpperCase(), iae);
+        if (command.getItemType() != null) {
+            item.setItemType(command.getItemType());
         }
+        if (command.getAmount() > 0) {
+            item.setAmount(command.getAmount());
+        }
+        return mapper.toInventoryItemDto(repository.save(item));
     }
 
-    private boolean inputStringsAreNotValid(String... input) {
-        return Arrays.stream(input).anyMatch(Objects::isNull)
-                || Arrays.stream(input).anyMatch(String::isBlank);
+    public void deleteInventoryItem(long id) {
+        repository.deleteById(id);
     }
 }
