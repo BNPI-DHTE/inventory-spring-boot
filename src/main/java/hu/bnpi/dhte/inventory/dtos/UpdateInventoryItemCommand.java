@@ -1,6 +1,5 @@
 package hu.bnpi.dhte.inventory.dtos;
 
-import hu.bnpi.dhte.inventory.models.ItemType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateInventoryItemCommand {
 
-    private ItemType itemType;
+    private String itemType;
 
     private String name;
 
@@ -19,4 +18,8 @@ public class UpdateInventoryItemCommand {
     private String serialNumber;
 
     private int amount;
+
+    private String responsibleType;
+
+    private Long responsibleId;
 }

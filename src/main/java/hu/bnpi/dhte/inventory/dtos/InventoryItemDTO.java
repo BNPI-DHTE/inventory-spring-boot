@@ -1,6 +1,7 @@
 package hu.bnpi.dhte.inventory.dtos;
 
 import hu.bnpi.dhte.inventory.models.ItemType;
+import hu.bnpi.dhte.inventory.models.ResponsibleType;
 import lombok.*;
 
 @Data
@@ -24,5 +25,10 @@ public class InventoryItemDTO {
 
     private String serialNumber;
 
+    @NonNull
     private int amount;
+
+    private ResponsibleType responsibleType;
+
+    private Long responsibleId;
 }

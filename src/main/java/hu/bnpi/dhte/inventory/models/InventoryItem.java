@@ -34,6 +34,14 @@ public class InventoryItem {
     @Column(name = "serial_number")
     private String serialNumber;
 
+    @NonNull
     @Column(nullable = false)
     private int amount;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "responsible_type")
+    private ResponsibleType responsibleType;
+
+    @Column(name = "responsible_id")
+    private Long responsibleId;
 }

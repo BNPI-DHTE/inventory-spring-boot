@@ -1,14 +1,11 @@
 package hu.bnpi.dhte.inventory.dtos;
 
-import hu.bnpi.dhte.inventory.models.ItemType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class CreateInventoryItemCommand {
 
     private Long id;
@@ -17,7 +14,7 @@ public class CreateInventoryItemCommand {
     private String inventoryId;
 
     @NonNull
-    private ItemType itemType;
+    private String itemType;
 
     @NonNull
     private String name;
@@ -26,11 +23,10 @@ public class CreateInventoryItemCommand {
 
     private String serialNumber;
 
+    @NonNull
     private int amount;
 
-    public CreateInventoryItemCommand(String inventoryId, String itemType, String name) {
-        this.inventoryId = inventoryId;
-        this.itemType = ItemType.valueOf(itemType);
-        this.name = name;
-    }
+    private String responsibleType;
+
+    private Long responsibleId;
 }

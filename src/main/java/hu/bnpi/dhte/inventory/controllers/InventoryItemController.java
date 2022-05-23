@@ -30,20 +30,38 @@ public class InventoryItemController {
     public Optional<InventoryItemDTO> findInventoryItemById(@PathVariable("id") long id) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
-           item = Optional.of(service.findInventoryItemById(id));
+            item = Optional.of(service.findInventoryItemById(id));
         } catch (IllegalArgumentException iae) {
             log.error(iae.getMessage());
         }
         return item;
     }
 
-    @PostMapping(path = "/")
-    public InventoryItemDTO createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
-            return service.createInventoryItem(command);
+    @GetMapping("/{inventoryId}")
+    public Optional<InventoryItemDTO> findInventoryItemByInventoryId(@PathVariable("inventoryId") String inventoryId) {
+        Optional<InventoryItemDTO> item = Optional.empty();
+        try {
+            item = Optional.of(service.findInventoryItemByInventoryId(inventoryId));
+        } catch (IllegalArgumentException iae) {
+            log.error(iae.getMessage());
+        }
+        return item;
+    }
+
+    @PostMapping
+    public Optional<InventoryItemDTO> createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
+        Optional<InventoryItemDTO> item = Optional.empty();
+        try {
+            item = Optional.of(service.createInventoryItem(command));
+        } catch (IllegalArgumentException iae) {
+            log.error(iae.getMessage());
+        }
+        return item;
     }
 
     @PutMapping("/{id}")
-    public Optional<InventoryItemDTO> updateInventoryItem(@PathVariable("id") long id, @RequestBody UpdateInventoryItemCommand command) {
+    public Optional<InventoryItemDTO> updateInventoryItem(@PathVariable("id") long id,
+                                                          @RequestBody UpdateInventoryItemCommand command) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
             return Optional.of(service.updateEmployee(id, command));

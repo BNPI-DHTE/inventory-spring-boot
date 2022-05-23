@@ -1,0 +1,59 @@
+###
+POST http://localhost:8080/api/inventoryitems
+Content-Type: application/json
+Accept: application/json
+
+{
+  "inventoryId": "ABC123",
+  "itemType": "HIGH_VALUE_ASSET",
+  "name": "laptop",
+  "amount": 1
+}
+
+###
+POST http://localhost:8080/api/inventoryitems
+Content-Type: application/json
+Accept: application/json
+
+{
+  "inventoryId": "FGT576",
+  "itemType": "HIGH_VALUE_ASSET",
+  "name": "binoculars",
+  "description": "KOWA Genesis 10.5*44",
+  "amount": 2,
+  "responsibleType": "EMPLOYEE",
+  "responsibleId": 103
+}
+
+###
+GET http://localhost:8080/api/inventoryitems
+Accept: application/json
+
+###
+GET http://localhost:8080/api/inventoryitems/?substringOfName=nocul
+Accept: application/json
+
+###
+PUT http://localhost:8080/api/inventoryitems/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "HP VivoBook",
+  "serialNumber": "HGF789DEF"
+}
+
+###
+PUT http://localhost:8080/api/inventoryitems/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "description": "MacBook Pro",
+  "serialNumber": "BGH569HT",
+  "name": "Macbook"
+}
+
+###
+DELETE http://localhost:8080/api/inventoryitems/1
+Accept: application/json
