@@ -7,6 +7,7 @@ import hu.bnpi.dhte.inventory.services.InventoryItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class InventoryItemController {
         return item;
     }
 
-    @GetMapping("/{inventoryId}")
+    @GetMapping("/findByInventoryId/{inventoryId}")
     public Optional<InventoryItemDTO> findInventoryItemByInventoryId(@PathVariable("inventoryId") String inventoryId) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
@@ -48,7 +49,7 @@ public class InventoryItemController {
         return item;
     }
 
-    @PostMapping
+    @PostMapping(path = "/save")
     public Optional<InventoryItemDTO> createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
@@ -59,7 +60,20 @@ public class InventoryItemController {
         return item;
     }
 
-    @PutMapping("/{id}")
+    @PostMapping(path = "/saveAll")
+    public List<InventoryItemDTO> createMultipleInventoryItem(@RequestBody List<CreateInventoryItemCommand> commands) {
+        List<InventoryItemDTO> items = new ArrayList<>();
+        try {
+            items = commands.stream()
+                    .map(command -> service.createInventoryItem(command))
+                    .toList();
+        } catch (IllegalArgumentException iae){
+            log.error(iae.getMessage());
+        }
+        return items;
+    }
+
+    @PutMapping("/update/{id}")
     public Optional<InventoryItemDTO> updateInventoryItem(@PathVariable("id") long id,
                                                           @RequestBody UpdateInventoryItemCommand command) {
         Optional<InventoryItemDTO> item = Optional.empty();
@@ -71,7 +85,7 @@ public class InventoryItemController {
         return item;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteInventoryItem(@PathVariable("id") long id) {
         try {
             service.deleteInventoryItem(id);

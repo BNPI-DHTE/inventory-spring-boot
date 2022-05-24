@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/api/inventoryitems
+POST http://localhost:8080/api/inventoryitems/save
 Content-Type: application/json
 Accept: application/json
 
@@ -11,7 +11,7 @@ Accept: application/json
 }
 
 ###
-POST http://localhost:8080/api/inventoryitems
+POST http://localhost:8080/api/inventoryitems/save
 Content-Type: application/json
 Accept: application/json
 
@@ -26,6 +26,31 @@ Accept: application/json
 }
 
 ###
+POST http://localhost:8080/api/inventoryitems/saveAll
+Content-Type: application/json
+Accept: application/json
+
+[
+  {
+    "inventoryId": "ABX5/FG",
+    "itemType": "HIGH_VALUE_ASSET",
+    "name": "desktop pc",
+    "description": "HP Workstation",
+    "amount": 2,
+    "responsibleType": "DEPARTMENT",
+    "responsibleId": 14
+  },
+  {
+    "inventoryId": "ZGF458",
+    "itemType": "LOW_VALUE_ASSET",
+    "name": "pendrive",
+    "amount": 20,
+    "responsibleType": "DEPARTMENT",
+    "responsibleId": 12
+  }
+]
+
+###
 GET http://localhost:8080/api/inventoryitems
 Accept: application/json
 
@@ -34,7 +59,11 @@ GET http://localhost:8080/api/inventoryitems/?substringOfName=nocul
 Accept: application/json
 
 ###
-PUT http://localhost:8080/api/inventoryitems/1
+GET http://localhost:8080/api/inventoryitems/findByInventoryId/ZGF458
+Accept: application/json
+
+###
+PUT http://localhost:8080/api/inventoryitems/update/1
 Content-Type: application/json
 Accept: application/json
 
@@ -44,7 +73,7 @@ Accept: application/json
 }
 
 ###
-PUT http://localhost:8080/api/inventoryitems/1
+PUT http://localhost:8080/api/inventoryitems/update/1
 Content-Type: application/json
 Accept: application/json
 
@@ -55,5 +84,5 @@ Accept: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/inventoryitems/1
+DELETE http://localhost:8080/api/inventoryitems/delete/1
 Accept: application/json
