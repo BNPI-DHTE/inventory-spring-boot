@@ -15,5 +15,5 @@ CREATE DATABASE inventory
     CONNECTION LIMIT = -1;
 
 COMMENT ON DATABASE inventory
-    IS 'Develeopment database for BNPI DHTE inventory webapp';
+    IS 'Development database for BNPI DHTE inventory webapp';
 EOSQL
