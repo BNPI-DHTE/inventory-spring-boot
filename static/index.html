@@ -2,18 +2,34 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leltár nyilvántartás</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Leltár nyilvántartás</h1>
-    <h2>Eszközlisták</h2>
-    <p>Az adatbázisban található összes eszköz listájának megtekintéséhez kattints <a href="/api/inventoryitems"><strong>ide</strong></a>!</p>
+    <a target="blank" href="https://www.bnpi.hu">
+        <img id = "bnpiLogo" src="img/BNP_logo_white-300x300.png" alt="BNPI logo">
+    </a>
+    <h1 id="title">Leltár</h1>
+    <h2>Listázás</h2>
+    <p>Az adatbázisban található összes eszköz listájának megtekintéséhez kattints <a href="/api/inventoryitems">ide</a>!</p>
+    <p>Listázás felelős alapján</p>
+    <p>Szállítólevél tartalmának listázása</p>
     <h2>Keresés</h2>
+    <p>Keresés eszköz név alapján</p>
+    <p>Keresés leltárazonosító alapján</p>
     <h2>Frissítés</h2>
+    <p>Szállítólevél feltöltése</p>
+    <p>Új elem felvétele</p>
     <h2>Törlés</h2>
     <h2>Dokumentáció</h2>
     <p><a href="/swagger-ui.html">OpenAPI dokumetáció</a></p>
+    <footer>
+        Frontend version: 0.1.220524<br>
+        Backend version: 0.1.220524<br>
+        API version: 0.1.220524<br> 
+        &copy; Ferenc Attila, 2022
+    </footer>
 </body>
 </html>

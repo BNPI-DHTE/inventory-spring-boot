@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;1,100&display=swap');
+
+body {
+    font-family: 'Barlow', sans-serif;
+    color: green;
+    background-color:rgb(32, 36, 32);
+}
+
+h1 {
+    font-size: 48px;
+}
+
+#title {
+    position: relative;
+    left: 90px;
+}
+
+h2 {
+    font-size: 32px;
+}
+
+p {
+    font-size: 18px;
+    text-align: justify;
+}
+
+footer {
+    font-size: 14px;
+    font-weight: 100;
+    font-style: italic;
+}
+
+a {
+    color: rgb(13, 182, 13);
+    font-weight: 500;
+}
+
+img {
+    height: 60px;
+}
+
+#bnpiLogo {
+    position: absolute;
+    margin-left: 10px;
+}
