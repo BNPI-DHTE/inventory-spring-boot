@@ -4,6 +4,8 @@ import hu.bnpi.dhte.inventory.dtos.CreateInventoryItemCommand;
 import hu.bnpi.dhte.inventory.dtos.InventoryItemDTO;
 import hu.bnpi.dhte.inventory.dtos.UpdateInventoryItemCommand;
 import hu.bnpi.dhte.inventory.services.InventoryItemService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api/inventoryitems")
+@Tag(name = "Operations on inventory items")
 public class InventoryItemController {
 
     private InventoryItemService service;
@@ -23,11 +26,13 @@ public class InventoryItemController {
     }
 
     @GetMapping
+    @Operation(description = "List all inventory items in the database, or filtered list by substring of name")
     public List<InventoryItemDTO> listInventoryItems(@RequestParam Optional<String> substringOfName) {
         return service.listInventoryItems(substringOfName);
     }
 
     @GetMapping("/{id}")
+    @Operation(description = "Find an inventory item by database id")
     public Optional<InventoryItemDTO> findInventoryItemById(@PathVariable("id") long id) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
@@ -39,6 +44,7 @@ public class InventoryItemController {
     }
 
     @GetMapping("/findByInventoryId/{inventoryId}")
+    @Operation(description = "Find an inventory item by inventory id")
     public Optional<InventoryItemDTO> findInventoryItemByInventoryId(@PathVariable("inventoryId") String inventoryId) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
@@ -50,6 +56,7 @@ public class InventoryItemController {
     }
 
     @PostMapping(path = "/save")
+    @Operation(description = "Save an item into database")
     public Optional<InventoryItemDTO> createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
         Optional<InventoryItemDTO> item = Optional.empty();
         try {
@@ -61,6 +68,7 @@ public class InventoryItemController {
     }
 
     @PostMapping(path = "/saveAll")
+    @Operation(description = "Save an multiple items into database")
     public List<InventoryItemDTO> createMultipleInventoryItem(@RequestBody List<CreateInventoryItemCommand> commands) {
         List<InventoryItemDTO> items = new ArrayList<>();
         try {
@@ -74,6 +82,7 @@ public class InventoryItemController {
     }
 
     @PutMapping("/update/{id}")
+    @Operation(description = "Update an item by database id")
     public Optional<InventoryItemDTO> updateInventoryItem(@PathVariable("id") long id,
                                                           @RequestBody UpdateInventoryItemCommand command) {
         Optional<InventoryItemDTO> item = Optional.empty();
@@ -86,6 +95,7 @@ public class InventoryItemController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Operation(description = "Delete an item by database id")
     public void deleteInventoryItem(@PathVariable("id") long id) {
         try {
             service.deleteInventoryItem(id);
