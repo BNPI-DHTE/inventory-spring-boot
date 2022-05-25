@@ -30,3 +30,4 @@ services:
       SPRING_DATASOURCE_PASSWORD: inventory
     depends_on:
       - inventory-database
+    entrypoint: ['/opt/bin/wait-for-it.sh', '-t', '120', 'inventory-database:5432', '--', 'java', 'org.springframework.boot.loader.JarLauncher']

@@ -4,6 +4,12 @@ COPY ./target/*.jar inventory.jar
 RUN java -Djarmode=layertools -jar inventory.jar extract
 
 FROM eclipse-temurin:17-jre-alpine
+
+RUN apk add --no-cache bash
+
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /opt/bin/
+RUN chmod +x /opt/bin/wait-for-it.sh
+
 WORKDIR application
 COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
