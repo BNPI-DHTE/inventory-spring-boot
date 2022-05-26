@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;1,100&display=swap');
 
-body {
+html {
     font-family: 'Barlow', sans-serif;
     color: green;
-    background-color:rgb(32, 36, 32);
+    background-color:rgb(25, 36, 32);
 }
 
 h1 {
@@ -42,4 +42,23 @@ img {
 #bnpiLogo {
     position: absolute;
     margin-left: 10px;
+}
+
+.textInputLabel {
+    position: relative;
+    bottom: 5px;
+}
+
+.textInputField {
+    background-color: burlywood;
+}
+
+
+.submitButtonDiv {
+    position: relative;
+    top: 5px;
+}
+
+.submitButton {
+    background-color: burlywood;
 }

@@ -18,7 +18,21 @@
     <p>Szállítólevél tartalmának listázása</p>
     <h2>Keresés</h2>
     <p>Keresés eszköz név alapján</p>
+    <div class="findByNameDiv">
+        <label id="itemNameInputLabel" class="textInputLabel">Elem neve<br></label>
+        <input class = "textInputField" type="text" name = "itemNameText">
+    </div>
+    <div class="submitButtonDiv">
+        <button class="submitButton">Keresés</button>
+    </div>
     <p>Keresés leltárazonosító alapján</p>
+    <div class="findByInventoryIdDiv">
+        <label id="inventoryIdInputLabel" class = "textInputLabel">Leltárazonosító<br></label>
+        <input class = "textInputField" type="text" name = "inventoryIdText">
+    </div>
+    <div class="submitButtonDiv">
+        <button class="submitButton">Keresés</button>
+    </div>
     <h2>Frissítés</h2>
     <p>Szállítólevél feltöltése</p>
     <p>Új elem felvétele</p>
@@ -26,7 +40,7 @@
     <h2>Dokumentáció</h2>
     <p><a href="/swagger-ui.html">OpenAPI dokumentáció</a></p>
     <footer>
-        Frontend version: 0.1.220524<br>
+        Frontend version: 0.1.220526<br>
         Backend version: 0.1.220524<br>
         API version: 0.1.220524<br> 
         &copy; Ferenc Attila, 2022
