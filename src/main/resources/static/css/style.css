@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;1,100&display=swap');
+#bnpiLogo {
+    max-height: 100px;
+}
+
+.title {
+    font-size: 48px;
+}
+
+/* @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;1,100&display=swap');
 
 html {
     font-family: 'Barlow', sans-serif;
@@ -51,8 +59,8 @@ img {
 
 .textInputField {
     background-color: burlywood;
+    margin: 5px;
 }
-
 
 .submitButtonDiv {
     position: relative;
@@ -62,3 +70,8 @@ img {
 .submitButton {
     background-color: burlywood;
 }
+
+.submitButton:hover {
+    box-shadow: 0 0 3px white;
+    cursor: pointer;
+} */
