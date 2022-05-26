@@ -1,9 +1,13 @@
 #bnpiLogo {
-    max-height: 100px;
+    max-height: 5pc;
 }
 
-.title {
+#title {
     font-size: 48px;
+}
+
+body {
+    color-scheme: dark;
 }
 
 /* @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;1,100&display=swap');

@@ -1,79 +1,267 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leltár nyilvántartás</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leltár </title>
 
-    <link rel="stylesheet" href="css/style.css">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="lib/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+  </link>
+  <script type="text/javascript" src="lib\bootstrap-5.1.3-dist\js\bootstrap.min.js"></script>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" target="blank" href="https://www.bnpi.hu">
-            <img id = "bnpiLogo" src="img/BNP_logo_white-300x300.png" alt="BNPI logo">
-        </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse title" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Leltár</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="email" placeholder="e-mail" aria-label="email">
-        <input class="form-control me-2" type="password" placeholder="jelszó" aria-label="password">
-        <button class="btn btn-outline-success" type="submit">Bejelentkezés</button>
-      </form>
+
+<body class="bg-dark text-white">
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" target="blank" href="https://www.bnpi.hu">
+        <img id="bnpiLogo" src="img/BNP_logo_white-300x300.png" alt="BNPI logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse title" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <h1 id="title" aria-current="page">Leltár</h1>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="email" placeholder="e-mail" aria-label="email">
+          <input class="form-control me-2" type="password" placeholder="jelszó" aria-label="password">
+          <button class="btn btn-outline-success" type="submit">Bejelentkezés</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg-4">
+        <h2>Keresés és szerkesztés</h2>
+
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Minden eszköz
+                  listázása</label>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\view_list_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
+                    height="20px"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Keresés felelős neve
+                  alapján<br></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input class="form-control" id="itemNameInputField" type="text" name="itemNameText"
+                  aria-describedby="itemNameSearchHelp" placeholder="felelős neve">
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20px"></button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <small id="itemNameSearchHelp" class="form-text text-muted">Keresés alkalmazott, vagy szervezeti egység
+                  nevére. Nem nagybetűérzékeny, de pontos egyezés szükséges.</small>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Keresés szállítólevél
+                  alapján<br></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input class="form-control" id="itemNameInputField" type="text" name="itemNameText"
+                  aria-describedby="itemNameSearchHelp" placeholder="szállítólevél sorszáma">
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20px"></button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <small id="itemNameSearchHelp" class="form-text text-muted">Keresés szállítólevél sorszámára. Pontos
+                  egyezés szükséges.</small>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Keresés eszköz név
+                  alapján<br></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input class="form-control" id="itemNameInputField" type="text" name="itemNameText"
+                  aria-describedby="itemNameSearchHelp" placeholder="eszköz elnevezés">
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20px"></button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <small id="itemNameSearchHelp" class="form-text text-muted">Keresés eszköz nevére, vagy szórészletére.
+                  Nem nagybetűérzékeny.</small>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Keresés eszköz azonosító
+                  alapján<br></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input class="form-control" id="itemNameInputField" type="text" name="itemNameText"
+                  aria-describedby="itemNameSearchHelp" placeholder="azonosító">
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20px"></button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <small id="itemNameSearchHelp" class="form-text text-muted">Keresés az eszköz leltárazonosítójára.
+                  Pontos egyezés szükséges.</small>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
     </div>
   </div>
-</nav>
-    <div class="container">        
-        <div class="row align-items-center"> 
-        </div>
+
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg">
+        <h2>Adatfeltöltés</h2>
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Feltöltés Microsoft Excel
+                  fájlból</label>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\file_upload_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
+                    height="20px"></button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <small id="itemNameSearchHelp" class="form-text text-muted">Csak .xlsx formátum használata lehetséges</small>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Szállítólevél feltöltése</label>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\post_add_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
+                    height="20px"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <form class="form-horizontal">
+          <div class="inputForm mb-3">
+            <div class="row">
+              <div class="col">
+                <label for="itemNameInputField" id="itemNameInputLabel" class="form-label">Új elem hozzáadása</label>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <div class="col">
+                <button type="submit" class="btn btn-success"><img
+                    src="img\material_icons\add_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
+                    height="20px"></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <h2>Listázás</h2>
-    <p>Az adatbázisban található összes eszköz listájának megtekintéséhez kattints <a href="/api/inventoryitems">ide</a>!</p>
-    <p>Listázás felelős alapján</p>
-    <p>Szállítólevél tartalmának listázása</p>
-    <h2>Keresés</h2>
-    <p>Keresés eszköz név alapján</p>
-    <div class="inputForm">
-        <div class="findByNameDiv">
-            <label id="itemNameInputLabel" class="textInputLabel">Elem neve<br></label>
-            <input class = "textInputField" type="text" name = "itemNameText">
-        </div>
-        <div class="submitButtonDiv">
-            <button class="submitButton">Keresés</button>
-        </div>
+  </div>
+
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg">
+        <h2>Dokumentáció</h2>
+        <p><a href="/swagger-ui.html">OpenAPI dokumentáció</a></p>
+      </div>
     </div>
-    <p>Keresés leltárazonosító alapján</p>
-    <div class="inputForm">
-        <div class="findByInventoryIdDiv">
-            <label id="inventoryIdInputLabel" class = "textInputLabel">Leltárazonosító<br></label>
-            <input class = "textInputField" type="text" name = "inventoryIdText">
-        </div>
-        <div class="submitButtonDiv">
-            <button class="submitButton">Keresés</button>
-        </div>
+  </div>
+
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-lg">
+        <small>Frontend version: 0.1.220526</small>
+      </div>
+      <div class="col-12 col-lg">
+        <small>Backend version: 0.1.220524</small>
+      </div>
+      <div class="col-12 col-lg">
+        <small>API version: 0.1.220524</small>
+      </div>
+      <div class="col-12 col-lg">
+        <small>&copy; Ferenc Attila, 2022</small>
+      </div>
     </div>
-    <h2>Frissítés</h2>
-    <p>Szállítólevél feltöltése</p>
-    <p>Új elem felvétele</p>
-    <h2>Törlés</h2>
-    <h2>Dokumentáció</h2>
-    <p><a href="/swagger-ui.html">OpenAPI dokumentáció</a></p>
-    <footer>
-        Frontend version: 0.1.220526<br>
-        Backend version: 0.1.220524<br>
-        API version: 0.1.220524<br> 
-        &copy; Ferenc Attila, 2022
-    </footer>
+  </div>
 </body>
+
 </html>
