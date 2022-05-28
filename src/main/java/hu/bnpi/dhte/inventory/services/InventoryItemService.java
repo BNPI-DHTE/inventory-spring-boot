@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.services;
 
 import hu.bnpi.dhte.inventory.dtos.CreateInventoryItemCommand;
-import hu.bnpi.dhte.inventory.dtos.InventoryItemDTO;
+import hu.bnpi.dhte.inventory.dtos.InventoryItemDto;
 import hu.bnpi.dhte.inventory.dtos.UpdateInventoryItemCommand;
 import hu.bnpi.dhte.inventory.mappers.InventoryItemMapper;
 import hu.bnpi.dhte.inventory.models.InventoryItem;
@@ -25,18 +25,18 @@ public class InventoryItemService {
         this.mapper = mapper;
     }
 
-    public InventoryItemDTO findInventoryItemById(Long id) {
+    public InventoryItemDto findInventoryItemById(Long id) {
         return mapper.toInventoryItemDto(repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find item with id: " + id)));
     }
 
-    public List<InventoryItemDTO> listInventoryItems(Optional<String> substringOfName) {
+    public List<InventoryItemDto> listInventoryItems(Optional<String> substringOfName) {
         return mapper.toInventoryItemDto(repository.findAll()).stream()
                 .filter(item -> substringOfName.isEmpty() || item.getName().toLowerCase().contains(substringOfName.get().toLowerCase()))
                 .toList();
     }
 
-    public InventoryItemDTO createInventoryItem(CreateInventoryItemCommand command) {
+    public InventoryItemDto createInventoryItem(CreateInventoryItemCommand command) {
         InventoryItem item = new InventoryItem(command.getInventoryId(),
                 ItemType.valueOf(command.getItemType()),
                 command.getName(),
@@ -61,7 +61,7 @@ public class InventoryItemService {
          return text != null && !text.isBlank();
     }
 
-    public InventoryItemDTO updateEmployee(long id, UpdateInventoryItemCommand command) {
+    public InventoryItemDto updateEmployee(long id, UpdateInventoryItemCommand command) {
         InventoryItem item = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find item with id: " + id));
         if (isValidString(command.getName())) {
@@ -92,7 +92,7 @@ public class InventoryItemService {
         repository.deleteById(id);
     }
 
-    public InventoryItemDTO findInventoryItemByInventoryId(String inventoryId) {
+    public InventoryItemDto findInventoryItemByInventoryId(String inventoryId) {
         return mapper.toInventoryItemDto(repository.findAll().stream()
                 .filter(item -> item.getInventoryId().equals(inventoryId))
                 .findFirst().orElseThrow(()-> new IllegalArgumentException("Cannot find item with inventory id: " + inventoryId)));

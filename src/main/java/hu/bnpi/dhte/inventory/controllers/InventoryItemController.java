@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.controllers;
 
 import hu.bnpi.dhte.inventory.dtos.CreateInventoryItemCommand;
-import hu.bnpi.dhte.inventory.dtos.InventoryItemDTO;
+import hu.bnpi.dhte.inventory.dtos.InventoryItemDto;
 import hu.bnpi.dhte.inventory.dtos.UpdateInventoryItemCommand;
 import hu.bnpi.dhte.inventory.services.InventoryItemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,14 +27,14 @@ public class InventoryItemController {
 
     @GetMapping
     @Operation(description = "List all inventory items in the database, or filtered list by substring of name")
-    public List<InventoryItemDTO> listInventoryItems(@RequestParam Optional<String> substringOfName) {
+    public List<InventoryItemDto> listInventoryItems(@RequestParam Optional<String> substringOfName) {
         return service.listInventoryItems(substringOfName);
     }
 
     @GetMapping("/{id}")
     @Operation(description = "Find an inventory item by database id")
-    public Optional<InventoryItemDTO> findInventoryItemById(@PathVariable("id") long id) {
-        Optional<InventoryItemDTO> item = Optional.empty();
+    public Optional<InventoryItemDto> findInventoryItemById(@PathVariable("id") long id) {
+        Optional<InventoryItemDto> item = Optional.empty();
         try {
             item = Optional.of(service.findInventoryItemById(id));
         } catch (IllegalArgumentException iae) {
@@ -45,8 +45,8 @@ public class InventoryItemController {
 
     @GetMapping("/findByInventoryId/{inventoryId}")
     @Operation(description = "Find an inventory item by inventory id")
-    public Optional<InventoryItemDTO> findInventoryItemByInventoryId(@PathVariable("inventoryId") String inventoryId) {
-        Optional<InventoryItemDTO> item = Optional.empty();
+    public Optional<InventoryItemDto> findInventoryItemByInventoryId(@PathVariable("inventoryId") String inventoryId) {
+        Optional<InventoryItemDto> item = Optional.empty();
         try {
             item = Optional.of(service.findInventoryItemByInventoryId(inventoryId));
         } catch (IllegalArgumentException iae) {
@@ -57,8 +57,8 @@ public class InventoryItemController {
 
     @PostMapping(path = "/save")
     @Operation(description = "Save an item into database")
-    public Optional<InventoryItemDTO> createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
-        Optional<InventoryItemDTO> item = Optional.empty();
+    public Optional<InventoryItemDto> createInventoryItem(@RequestBody CreateInventoryItemCommand command) {
+        Optional<InventoryItemDto> item = Optional.empty();
         try {
             item = Optional.of(service.createInventoryItem(command));
         } catch (IllegalArgumentException iae) {
@@ -69,8 +69,8 @@ public class InventoryItemController {
 
     @PostMapping(path = "/saveAll")
     @Operation(description = "Save an multiple items into database")
-    public List<InventoryItemDTO> createMultipleInventoryItem(@RequestBody List<CreateInventoryItemCommand> commands) {
-        List<InventoryItemDTO> items = new ArrayList<>();
+    public List<InventoryItemDto> createMultipleInventoryItem(@RequestBody List<CreateInventoryItemCommand> commands) {
+        List<InventoryItemDto> items = new ArrayList<>();
         try {
             items = commands.stream()
                     .map(command -> service.createInventoryItem(command))
@@ -83,9 +83,9 @@ public class InventoryItemController {
 
     @PutMapping("/update/{id}")
     @Operation(description = "Update an item by database id")
-    public Optional<InventoryItemDTO> updateInventoryItem(@PathVariable("id") long id,
+    public Optional<InventoryItemDto> updateInventoryItem(@PathVariable("id") long id,
                                                           @RequestBody UpdateInventoryItemCommand command) {
-        Optional<InventoryItemDTO> item = Optional.empty();
+        Optional<InventoryItemDto> item = Optional.empty();
         try {
             return Optional.of(service.updateEmployee(id, command));
         } catch (IllegalArgumentException iae) {
