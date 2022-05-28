@@ -1,5 +1,5 @@
 let items =
-    [
+    `[
         {
             "id": 3,
             "inventoryId": "DFRL785496",
@@ -50,7 +50,7 @@ let items =
             "responsibleType": "DEPARTMENT",
             "responsibleId": 8
         }
-    ];
+    ]`;
 
 function createAnyElement(name, attributes) {
     let element = document.createElement(name);
@@ -63,22 +63,32 @@ function createAnyElement(name, attributes) {
 function createHtmlTable(rowDivId, tableId, data) {
     createTableElement(rowDivId, tableId);
     createHtmlTableHeader(tableId, data);
+    createTableBody(tableId, data);
 }
 
 function createTableElement(rowDivId, tableId) {
-    let rowDiv = document.getElementById(rowDivId);
+    let colDiv = createColumnDiv(rowDivId);
     let table = document.getElementById(tableId);
     if (!table) {
         table = createAnyElement("table",
             {
-                id: "${tableId}",
+                id: tableId,
                 class: "display table table-dark table-striped table-bordered table-hover table-sm",
                 width: "100%"
             });
-        rowDiv.appendChild(table);
+        colDiv.appendChild(table);
     } else {
         table.innerHTML = "";
     }
+}
+
+function createColumnDiv(rowDivId) {
+    let rowDiv = document.getElementById(rowDivId);
+    let colDiv = createAnyElement("col", {
+        class: "col-xl"
+    });
+    rowDiv.appendChild(colDiv);
+    return colDiv;
 }
 
 function createHtmlTableHeader(tableId, data) {
@@ -95,14 +105,43 @@ function createHtmlTableHeader(tableId, data) {
     tableHeader.appendChild(tableHeaderRow);
 }
 
+function createTableBody(tableId, data) {
+    let table = document.getElementById(tableId);
+    let tableBody = createAnyElement("tbody");
+    table.appendChild(tableBody);
+    let tableContent = getObjectsFromJSON(data);
+    for (let values of Object.values(tableContent)) {
+        let row = createAnyElement("tr");
+        createTableCells(row, values, data);
+        tableBody.appendChild(row);
+    }
+}
+
+function createTableCells(row, content, data) {
+    let columnNames = getColumnNames(data);
+    for (let key of columnNames) {
+        let cell = createAnyElement("td");
+        if (!content[key]) {
+            cell.innerHTML = "null";
+        } else {
+            cell.innerHTML = content[key];
+        }
+        row.appendChild(cell);
+    }
+}
+
+function getObjectsFromJSON(data) {
+    return JSON.parse(data);
+}
+
 function getColumnNames(data) {
+    let items = getObjectsFromJSON(data);
     let columnNames = [];
-    for (let i = 0; i < data.length; i++) {
-        let item = data[i];
+    for (let item of items) {
         let keys = Object.keys(item);
-        for (let j = 0; j < keys.length; j++) {
-            if (!columnNames.includes(Object.keys(item)[j])) {
-                columnNames.push(Object.keys(item)[j]);
+        for (let key of keys) {
+            if (!columnNames.includes(key)) {
+                columnNames.push(key);
             }
         }
     }
@@ -118,7 +157,7 @@ function findByItemName() {
 }
 
 function validateItemName() {
-    
+
 }
 
 function findInventroyItemByInventoryId() {
