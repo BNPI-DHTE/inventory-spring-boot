@@ -12,7 +12,7 @@
   <script src="js/main.js"></script>
 </head>
 
-<body class="bg-dark text-white">
+<body class="bg-dark text-white-50">
 
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -30,8 +30,8 @@
           </li>
         </ul>
         <form class="d-flex" role="search">
-          <input class="form-control me-2 bg-dark" type="email" placeholder="e-mail" aria-label="email">
-          <input class="form-control me-2 bg-dark" type="password" placeholder="jelszó" aria-label="password">
+          <input class="form-control me-2 bg-dark text-white-50" type="email" placeholder="e-mail" aria-label="email">
+          <input class="form-control me-2 bg-dark text-white-50" type="password" placeholder="jelszó" aria-label="password">
           <button class="btn btn-outline-success" type="submit">Bejelentkezés</button>
         </form>
       </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="row align-items-center">
               <div class="col">
-                <button type="submit" class="btn btn-success" id="listAllItemsButton"><img
+                <button type="button" class="btn btn-success" id="listAllItemsButton" onclick="findAllItems()"><img
                     src="img/material_icons/view_list_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
                     height="20"></button>
               </div>
@@ -61,27 +61,34 @@
           </div>
         </form>
 
+        <div class="container">
+          <div class="row" id="allItemsRow">
+          </div>
+        </div>
+
         <form class="form-horizontal">
           <div class="inputForm mb-3">
             <div class="row">
               <div class="col">
-                <label for="findByResponsibleNameInputField" id="findByResponsibleNameInputLabel" class="form-label">Keresés felelős neve
+                <label for="findByResponsibleNameInputField" id="findByResponsibleNameInputLabel"
+                  class="form-label">Keresés felelős neve
                   alapján<br></label>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <input class="form-control bg-dark" id="findByResponsibleNameInputField" type="text"
+                <input class="form-control bg-dark text-white-50" id="findByResponsibleNameInputField" type="text"
                   aria-describedby="findByResponsibleNameHelp" placeholder="felelős neve">
               </div>
               <div class="col">
-                <button type="submit" class="btn btn-success"><img
+                <button type="button" class="btn btn-success" id="findByResponsibleNameButton"><img
                     src="img/material_icons/search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <small id="findByResponsibleNameHelp" class="form-text text-muted">Keresés alkalmazott, vagy szervezeti egység
+                <small id="findByResponsibleNameHelp" class="form-text text-muted">Keresés alkalmazott, vagy szervezeti
+                  egység
                   nevére. Nem nagybetűérzékeny, de pontos egyezés szükséges.</small>
               </div>
             </div>
@@ -92,17 +99,18 @@
           <div class="inputForm mb-3">
             <div class="row">
               <div class="col">
-                <label for="findByDeliveryNoteInputField" id="findByDeliveryNoteInputLabel" class="form-label">Keresés szállítólevél
+                <label for="findByDeliveryNoteInputField" id="findByDeliveryNoteInputLabel" class="form-label">Keresés
+                  szállítólevél
                   alapján<br></label>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <input class="form-control bg-dark" id="findByDeliveryNoteInputField" type="text"
+                <input class="form-control bg-dark text-white-50" id="findByDeliveryNoteInputField" type="text"
                   aria-describedby="findByDeliveryNoteHelp" placeholder="szállítólevél sorszáma">
               </div>
               <div class="col">
-                <button type="submit" class="btn btn-success"><img
+                <button type="button" class="btn btn-success" id="findByDeliveryNoteButton"><img
                     src="img/material_icons/search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
@@ -119,17 +127,18 @@
           <div class="inputForm mb-3">
             <div class="row">
               <div class="col">
-                <label for="findByItemNameInputField" id="findByItemNameInputLabel" class="form-label">Keresés eszköz név
+                <label for="findByItemNameInputField" id="findByItemNameInputLabel" class="form-label">Keresés eszköz
+                  név
                   alapján<br></label>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <input class="form-control bg-dark" id="findByItemNameInputField" type="text"
+                <input class="form-control bg-dark text-white-50" id="findByItemNameInputField" type="text"
                   aria-describedby="findByItemNameHelp" placeholder="eszköz elnevezés">
               </div>
               <div class="col">
-                <button type="submit" class="btn btn-success"><img
+                <button type="button" class="btn btn-success" id="findByItemNameButton" onclick="findByItemName()"><img
                     src="img/material_icons/search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
@@ -146,23 +155,24 @@
           <div class="inputForm mb-3">
             <div class="row">
               <div class="col">
-                <label for="findByItemIdInputField" id="findByItemIdInputLabel" class="form-label">Keresés eszköz azonosító
+                <label for="findByInventoryIdInputField" id="findByInventoryIdInputLabel" class="form-label">Keresés
+                  eszköz azonosító
                   alapján<br></label>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <input class="form-control bg-dark" id="findByItemIdInputField" type="text"
-                  aria-describedby="findByItemIdHelp" placeholder="azonosító">
+                <input class="form-control bg-dark text-white-50" id="findByInventoryIdInputField" type="text"
+                  aria-describedby="findByInventoryIdHelp" placeholder="azonosító">
               </div>
               <div class="col">
-                <button type="submit" class="btn btn-success"><img
+                <button type="button" class="btn btn-success" id="findByInventoryIdButton"><img
                     src="img/material_icons/search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <small id="findByItemIdHelp" class="form-text text-muted">Keresés az eszköz leltárazonosítójára.
+                <small id="findByInventoryIdHelp" class="form-text text-muted">Keresés az eszköz leltárazonosítójára.
                   Pontos egyezés szükséges.</small>
               </div>
             </div>
@@ -187,48 +197,53 @@
             </div>
             <div class="row align-items-center">
               <div class="col">
-                <button type="submit" class="btn btn-success" id="uploadFileButton"><img
+                <input class="form-control bg-dark text-white-50" id="uploadFileInputField" type="file"
+                  aria-describedby="uploadFileHelp" placeholder=".xlsx">
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-success" id="uploadFileButton"><img
                     src="img/material_icons/file_upload_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
                     height="20"></button>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <small id="uploadFileHelp" class="form-text text-muted">Csak .xlsx formátum használata lehetséges</small>
+                <small id="uploadFileHelp" class="form-text text-muted">Csak .xlsx formátum használata
+                  lehetséges</small>
               </div>
             </div>
           </div>
         </form>
-        
+
         <form class="form-horizontal">
           <div class="inputForm mb-3">
             <div class="row">
               <div class="col">
-                <label for="deliveryNoteRecordButton" id="deliveryNoteRecordLabel" class="form-label">Szállítólevél rögzítése</label>
+                <label for="deliveryNoteRecordButton" id="deliveryNoteRecordLabel" class="form-label">Szállítólevél
+                  rögzítése</label>
               </div>
             </div>
             <div class="row align-items-center">
               <div class="col">
-                <button type="submit" class="btn btn-success" id="deliveryNoteRecordButton"><img
-                    src="img/material_icons/post_add_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
-                    height="20"></button>
+                <button type="button" class="btn btn-success" id="deliveryNoteRecordButton"><img
+                    src="img/material_icons/post_add_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
           </div>
         </form>
-        
+
         <form class="form-horizontal">
           <div class="inputForm mb-3">
             <div class="row">
               <div class="col">
-                <label for="addNewItemInputButton" id="addNewItemInputLabel" class="form-label">Új elem hozzáadása</label>
+                <label for="addNewItemInputButton" id="addNewItemInputLabel" class="form-label">Új elem
+                  hozzáadása</label>
               </div>
             </div>
             <div class="row align-items-center">
               <div class="col">
-                <button type="submit" class="btn btn-success" id="addNewItemInputButton"><img
-                    src="img/material_icons/add_FILL0_wght400_GRAD0_opsz48.png" alt="keresés"
-                    height="20"></button>
+                <button type="button" class="btn btn-success" id="addNewItemInputButton"><img
+                    src="img/material_icons/add_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
           </div>
