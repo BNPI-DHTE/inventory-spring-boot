@@ -1,6 +1,5 @@
 package hu.bnpi.dhte.inventory.models;
 
-import hu.bnpi.dhte.inventory.dtos.InventoryItemDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -40,8 +39,11 @@ public class DeliveryNote {
         validateResponsible(newResponsibleId);
     }
 
-    private void validateResponsible(Long newResponsibleId) {
-        //We can implement it after Employee and Department Microservices implemented.
+    private void validateResponsible(Long responsibleId) {
+        if (responsibleId <= 0) {
+            throw new IllegalArgumentException("Responsible id must be larger than 0");
+        }
+//        We can implement it after Employee and Department Microservices implemented.
     }
 
     public void updateInventoryItemsByDeliveryNote() {
