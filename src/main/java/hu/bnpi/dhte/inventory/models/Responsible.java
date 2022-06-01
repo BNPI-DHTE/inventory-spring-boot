@@ -22,9 +22,12 @@ public abstract class Responsible {
 
     private String email;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "responsible_type")
     private ResponsibleType responsibleType;
 
     @OneToMany
+    @JoinColumn(name = "id")
     private Set<InventoryItem> itemsResponsibleFor = new HashSet<>();
 
     public Responsible(ResponsibleType responsibleType) {

@@ -6,7 +6,6 @@ import hu.bnpi.dhte.inventory.dtos.UpdateInventoryItemCommand;
 import hu.bnpi.dhte.inventory.mappers.InventoryItemMapper;
 import hu.bnpi.dhte.inventory.models.InventoryItem;
 import hu.bnpi.dhte.inventory.models.ItemType;
-import hu.bnpi.dhte.inventory.models.ResponsibleType;
 import hu.bnpi.dhte.inventory.repositories.InventoryItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,11 +46,8 @@ public class InventoryItemService {
         if (isValidString(command.getSerialNumber())) {
             item.setSerialNumber(command.getSerialNumber());
         }
-        if (isValidString(command.getResponsibleType())) {
-                item.setResponsibleType(ResponsibleType.valueOf(command.getResponsibleType()));
-        }
-        if (command.getResponsibleId() != null) {
-            item.setResponsibleId(command.getResponsibleId());
+        if (command.getResponsible() != null) {
+            item.setResponsible(command.getResponsible());
         }
         item = repository.save(item);
         return mapper.toInventoryItemDto(item);
@@ -61,7 +57,7 @@ public class InventoryItemService {
          return text != null && !text.isBlank();
     }
 
-    public InventoryItemDto updateEmployee(long id, UpdateInventoryItemCommand command) {
+    public InventoryItemDto updateInventoryItem(long id, UpdateInventoryItemCommand command) {
         InventoryItem item = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find item with id: " + id));
         if (isValidString(command.getName())) {
@@ -79,11 +75,8 @@ public class InventoryItemService {
         if (command.getAmount() > 0) {
             item.setAmount(command.getAmount());
         }
-        if (command.getResponsibleType() != null) {
-            item.setResponsibleType(ResponsibleType.valueOf(command.getResponsibleType()));
-        }
-        if (command.getResponsibleId() != null) {
-            item.setResponsibleId(command.getResponsibleId());
+        if (command.getResponsible() != null) {
+            item.setResponsible(command.getResponsible());
         }
         return mapper.toInventoryItemDto(repository.save(item));
     }

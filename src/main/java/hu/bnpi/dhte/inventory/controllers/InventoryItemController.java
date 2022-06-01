@@ -87,7 +87,7 @@ public class InventoryItemController {
                                                           @RequestBody UpdateInventoryItemCommand command) {
         Optional<InventoryItemDto> item = Optional.empty();
         try {
-            return Optional.of(service.updateEmployee(id, command));
+            return Optional.of(service.updateInventoryItem(id, command));
         } catch (IllegalArgumentException iae) {
             log.error(iae.getMessage());
         }

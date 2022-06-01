@@ -64,11 +64,12 @@ function createHtmlTable(rowDivId, tableId, data) {
     createTableElement(rowDivId, tableId);
     createHtmlTableHeader(tableId, data);
     createTableBody(tableId, data);
+    createCloseButton(rowDivId);
 }
 
 function createTableElement(rowDivId, tableId) {
     let colDiv = createColumnDiv(rowDivId);
-    let table = document.getElementById(tableId);
+    let table = document.querySelector(`#${tableId}`);
     if (!table) {
         table = createAnyElement("table",
             {
@@ -83,7 +84,7 @@ function createTableElement(rowDivId, tableId) {
 }
 
 function createColumnDiv(rowDivId) {
-    let rowDiv = document.getElementById(rowDivId);
+    let rowDiv = document.querySelector(`#${rowDivId}`);
     let colDiv = createAnyElement("col", {
         class: "col-xl"
     });
@@ -92,7 +93,7 @@ function createColumnDiv(rowDivId) {
 }
 
 function createHtmlTableHeader(tableId, data) {
-    let table = document.getElementById(tableId);
+    let table = document.querySelector(`#${tableId}`);
     let tableHeader = createAnyElement("thead");
     table.appendChild(tableHeader);
     let columnNames = getColumnNames(data);
@@ -106,7 +107,7 @@ function createHtmlTableHeader(tableId, data) {
 }
 
 function createTableBody(tableId, data) {
-    let table = document.getElementById(tableId);
+    let table = document.querySelector(`#${tableId}`);
     let tableBody = createAnyElement("tbody");
     table.appendChild(tableBody);
     let tableContent = getObjectsFromJSON(data);
@@ -130,6 +131,21 @@ function createTableCells(row, content, data) {
     }
 }
 
+function createCloseButton(rowDivId) {
+    let idPrefix = rowDivId.replace("Row", "");
+    let rowDiv = document.querySelector(`#${rowDivId}`);
+    let buttonDiv = createAnyElement("div");
+    let button = createAnyElement("button",
+        {
+            type: "button",
+            class: "btn btn-danger",
+            id: `${idPrefix}Button`
+        });
+    button.innerHTML = `<img src="img/material_icons/close_FILL0_wght400_GRAD0_opsz48.png" alt="bezárás" height="20">`;
+    buttonDiv.appendChild(button);
+    rowDiv.appendChild(buttonDiv);
+}
+
 function getObjectsFromJSON(data) {
     return JSON.parse(data);
 }
@@ -150,6 +166,12 @@ function getColumnNames(data) {
 
 function findAllItems() {
     createHtmlTable("allItemsRow", "allItemsTable", items);
+}
+
+function findByResponsibleName() {
+    // let data = getObjectsFromJSON(items);
+    // let filteredItems = data.filter(item => item.responsibleId == 0);
+    // createHtmlTable("itemsByResponsibleRow", "itemsByResponsibleTable", filteredItems)
 }
 
 function findByItemName() {

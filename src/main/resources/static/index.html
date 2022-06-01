@@ -81,7 +81,7 @@
                   aria-describedby="findByResponsibleNameHelp" placeholder="felelős neve">
               </div>
               <div class="col">
-                <button type="button" class="btn btn-success" id="findByResponsibleNameButton"><img
+                <button type="button" class="btn btn-success" id="findByResponsibleNameButton" onclick="findByResponsibleName()"><img
                     src="img/material_icons/search_FILL0_wght400_GRAD0_opsz48.png" alt="keresés" height="20"></button>
               </div>
             </div>
@@ -94,6 +94,11 @@
             </div>
           </div>
         </form>
+
+        <div class="container">
+          <div class="row" id="itemsByResponsibleRow">
+          </div>
+        </div>
 
         <form class="form-horizontal">
           <div class="inputForm mb-3">
@@ -123,6 +128,11 @@
           </div>
         </form>
 
+        <div class="container">
+          <div class="row" id="itemsByDeliveryNoteRow">
+          </div>
+        </div>
+
         <form class="form-horizontal">
           <div class="inputForm mb-3">
             <div class="row">
@@ -151,6 +161,11 @@
           </div>
         </form>
 
+        <div class="container">
+          <div class="row" id="itemsByItemNameRow">
+          </div>
+        </div>
+
         <form class="form-horizontal">
           <div class="inputForm mb-3">
             <div class="row">
@@ -178,6 +193,11 @@
             </div>
           </div>
         </form>
+
+        <div class="container">
+          <div class="row" id="itemsByInventoryIdRow">
+          </div>
+        </div>
 
       </div>
     </div>
@@ -214,6 +234,11 @@
             </div>
           </div>
         </form>
+
+        <div class="container">
+          <div class="row" id="itemsByUploadedFileRow">
+          </div>
+        </div>
 
         <form class="form-horizontal">
           <div class="inputForm mb-3">

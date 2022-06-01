@@ -1,6 +1,7 @@
 package hu.bnpi.dhte.inventory.dtos;
 
 import hu.bnpi.dhte.inventory.models.ItemType;
+import hu.bnpi.dhte.inventory.models.Responsible;
 import hu.bnpi.dhte.inventory.models.ResponsibleType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -39,11 +40,6 @@ public class InventoryItemDto {
     @Schema(example = "1")
     private int amount;
 
-//    allowableValues = {"EMPLOYEE", "DEPARTMENT"}
-
-    @Schema(description = "type of responsible", enumAsRef = true)
-    private ResponsibleType responsibleType;
-
-    @Schema(description = "employee or department id based on organizational structure microservice")
-    private Long responsibleId;
+    @Schema(description = "employee or department based on organizational structure microservice")
+    private Responsible responsible;
 }

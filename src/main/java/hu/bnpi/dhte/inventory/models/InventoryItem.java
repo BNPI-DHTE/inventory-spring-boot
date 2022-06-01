@@ -3,6 +3,7 @@ package hu.bnpi.dhte.inventory.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -38,10 +39,9 @@ public class InventoryItem {
     @Column(nullable = false)
     private int amount;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "responsible_type")
-    private ResponsibleType responsibleType;
+    @ManyToOne
+    private Responsible responsible;
 
-    @Column(name = "responsible_id")
-    private Long responsibleId;
+    @ManyToMany
+    private List<DeliveryNote> deliveryNotes;
 }

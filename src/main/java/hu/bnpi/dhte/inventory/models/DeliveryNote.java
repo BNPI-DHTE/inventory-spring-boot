@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public class DeliveryNote {
 
     @Id
@@ -18,7 +18,8 @@ public class DeliveryNote {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    @OneToMany
+    @ManyToMany
+    @JoinColumn(name = "item_id")
     private List<InventoryItem> items;
 
     private Long oldResponsibleId;
@@ -28,7 +29,7 @@ public class DeliveryNote {
     public void validateOldResponsible() {
         validateResponsible(oldResponsibleId);
         List<InventoryItem> invalidItems = items.stream()
-                .filter(item -> item.getResponsibleId() != oldResponsibleId)
+                .filter(item -> item.getResponsible().getId() != oldResponsibleId)
                 .toList();
         if (!invalidItems.isEmpty()) {
             throw new IllegalArgumentException("Responsible doesn't have items: " + invalidItems);
@@ -44,17 +45,5 @@ public class DeliveryNote {
             throw new IllegalArgumentException("Responsible id must be larger than 0");
         }
 //        We can implement it after Employee and Department Microservices implemented.
-    }
-
-    public void updateInventoryItemsByDeliveryNote() {
-        items.forEach(this::updateResponsible);
-        //This method will be moved into service.
-    }
-
-    private InventoryItem updateResponsible(InventoryItem inventoryItem) {
-        inventoryItem.setResponsibleId(newResponsibleId);
-        //Responsible type must be implemented after Employee and Department
-        // Microservices implemented
-        return inventoryItem;
     }
 }

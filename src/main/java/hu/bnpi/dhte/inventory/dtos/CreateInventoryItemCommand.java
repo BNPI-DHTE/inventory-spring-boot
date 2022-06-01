@@ -1,5 +1,6 @@
 package hu.bnpi.dhte.inventory.dtos;
 
+import hu.bnpi.dhte.inventory.models.Responsible;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -32,9 +33,6 @@ public class CreateInventoryItemCommand {
     @Schema(example = "1")
     private int amount;
 
-    @Schema(description = "type of responsible", allowableValues = {"EMPLOYEE", "DEPARTMENT"})
-    private String responsibleType;
-
-    @Schema(description = "employee or department id based on organizational structure microservice")
-    private Long responsibleId;
+    @Schema(description = "employee or department based on organizational structure microservice")
+    private Responsible responsible;
 }
