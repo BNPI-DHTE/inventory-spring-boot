@@ -27,7 +27,7 @@ public class InventoryItem {
     private Long id;
 
     @NotBlank
-    @Column(name = "inventory_id", length = 50, nullable = false)
+    @Column(name = "inventory_id", length = 50, nullable = false, unique = true)
     private String inventoryId;
 
     @NotNull
@@ -44,6 +44,24 @@ public class InventoryItem {
 
     @Column(name = "serial_number", length = 100)
     private String serialNumber;
+
+    @Column(length = 100, nullable = false)
+    private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "kit_id")
+    private Kit kit;
+
+    @Column(name = "additional_fields", columnDefinition = "TEXT")
+    private String additionalFields;
+
+    @Column(length = 100)
+    private String location;
+
+    @Column(name = "to_disposal")
+    private boolean toDisposal;
+
+    private boolean deficit;
 
     @PositiveOrZero
     @Column(name = "start_unit_price", scale = 2)
