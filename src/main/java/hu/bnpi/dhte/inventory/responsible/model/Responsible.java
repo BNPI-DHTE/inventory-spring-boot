@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,5 +29,9 @@ public abstract class Responsible {
     private String name;
 
     @OneToMany(mappedBy = "responsible")
-    private List<InventoryItem> items;
+    private List<InventoryItem> items = new ArrayList<>();
+
+    protected Responsible(String name) {
+        this.name = name;
+    }
 }

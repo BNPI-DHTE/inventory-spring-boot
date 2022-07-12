@@ -12,13 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class EmployeeDto {
+public class DepartmentDto {
 
     private Long id;
 
     private String name;
 
-    private String email;
+    private String leaderName;
 
     private List<InventoryItem> items;
 }

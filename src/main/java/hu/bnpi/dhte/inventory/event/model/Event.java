@@ -15,8 +15,8 @@ import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity

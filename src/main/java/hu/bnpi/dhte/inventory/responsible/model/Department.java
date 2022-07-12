@@ -1,5 +1,6 @@
 package hu.bnpi.dhte.inventory.responsible.model;
 
+import hu.bnpi.dhte.inventory.inventoryitem.model.InventoryItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +25,9 @@ public class Department extends Responsible {
     @OneToOne
     @JoinColumn(name = "leader_id")
     private Employee leader;
+
+    public Department(long id, String name, List<InventoryItem> items, Employee leader) {
+        super(id, name, items);
+        this.leader = leader;
+    }
 }
