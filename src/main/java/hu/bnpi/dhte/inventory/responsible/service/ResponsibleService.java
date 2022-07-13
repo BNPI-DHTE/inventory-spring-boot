@@ -26,19 +26,19 @@ public class ResponsibleService {
     private ResponsibleMapper responsibleMapper;
 
     public List<EmployeeDto> findEmployees(Optional<String> name) {
-        return employeeRepository.findAll().stream()
+        return employeeRepository.findAllByName(name).stream()
                 .map(employee -> responsibleMapper.toEmployeeDto(employee))
                 .toList();
     }
 
     public List<DepartmentDto> findDepartments(Optional<String> name) {
-        return departmentRepository.findAll().stream()
+        return departmentRepository.findAllByName(name).stream()
                 .map(department -> responsibleMapper.toDepartmentDto(department))
                 .toList();
     }
 
     public List<ResponsibleDto> findResponsible(Optional<String> name) {
-        return responsibleRepository.findAll().stream()
+        return responsibleRepository.findAllByName(name).stream()
                 .map(responsible -> responsibleMapper.toResponsibleDto(responsible))
                 .toList();
     }

@@ -30,4 +30,9 @@ public class Department extends Responsible {
         super(id, name, items);
         this.leader = leader;
     }
+
+    public Department(String name, Employee leader) {
+        super(name);
+        this.leader = leader;
+    }
 }
