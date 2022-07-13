@@ -11,6 +11,7 @@ jobs:
 
       - uses: m4nu56/postgresql-action@1.0
         with:
+          postgresql port: '5433'
           postgresql db: 'inventory'
           postgresql version: 'latest'
           postgresql user: 'inventory'
