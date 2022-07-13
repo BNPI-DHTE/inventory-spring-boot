@@ -6,13 +6,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      inventory-test-database:
         image: postgres
+        ports: 5433:5432
         env:
           POSTGRES_USER: inventory
           POSTGRES_DB: inventory
           POSTGRES_PASSWORD: inventory
-          POSTGRES_PORT: 5433
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
