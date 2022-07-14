@@ -34,4 +34,10 @@ public abstract class Responsible {
     protected Responsible(String name) {
         this.name = name;
     }
+
+    protected Responsible(long id, String name, List<InventoryItem> items) {
+        this.id = id;
+        this.name = name;
+        this.items = items;
+    }
 }
