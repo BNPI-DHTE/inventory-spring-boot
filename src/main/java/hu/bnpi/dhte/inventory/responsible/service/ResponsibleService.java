@@ -3,9 +3,12 @@ package hu.bnpi.dhte.inventory.responsible.service;
 import hu.bnpi.dhte.inventory.responsible.dtos.*;
 import hu.bnpi.dhte.inventory.responsible.exceptions.DepartmentNotFoundException;
 import hu.bnpi.dhte.inventory.responsible.exceptions.EmployeeNotFoundException;
+import hu.bnpi.dhte.inventory.responsible.exceptions.ResponsibleCanNotDeleteException;
+import hu.bnpi.dhte.inventory.responsible.exceptions.ResponsibleNotFoundException;
 import hu.bnpi.dhte.inventory.responsible.mapper.ResponsibleMapper;
 import hu.bnpi.dhte.inventory.responsible.model.Department;
 import hu.bnpi.dhte.inventory.responsible.model.Employee;
+import hu.bnpi.dhte.inventory.responsible.model.Responsible;
 import hu.bnpi.dhte.inventory.responsible.repositories.DepartmentRepository;
 import hu.bnpi.dhte.inventory.responsible.repositories.EmployeeRepository;
 import hu.bnpi.dhte.inventory.responsible.repositories.ResponsibleRepository;
@@ -91,5 +94,14 @@ public class ResponsibleService {
             throw new EmployeeNotFoundException(nameOfLeader);
         }
         return leader;
+    }
+
+    public void deleteResponsible(long id) {
+        Responsible result = responsibleRepository.findById(id)
+                .orElseThrow(()-> new ResponsibleNotFoundException(id));
+        if (!result.getItems().isEmpty()) {
+            throw new ResponsibleCanNotDeleteException(id);
+        }
+        responsibleRepository.delete(result);
     }
 }

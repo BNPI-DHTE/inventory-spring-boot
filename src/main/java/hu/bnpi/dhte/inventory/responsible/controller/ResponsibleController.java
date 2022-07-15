@@ -53,4 +53,10 @@ public class ResponsibleController {
     public DepartmentDto updateDepartment(@Valid @RequestBody UpdateDepartmentCommand command) {
         return service.updateDepartment(command);
     }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeResponsible(@PathVariable("id") long id) {
+        service.deleteResponsible(id);
+    }
 }
