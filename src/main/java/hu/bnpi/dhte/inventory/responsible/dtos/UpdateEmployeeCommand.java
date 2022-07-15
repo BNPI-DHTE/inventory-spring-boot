@@ -5,20 +5,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class SaveDepartmentCommand {
+public class UpdateEmployeeCommand {
 
-    @NotBlank
+    @NotNull
+    private long id;
+
     @Size(min = 5, max = 150)
     private String name;
 
-    @NotBlank
-    @Size(min = 5, max = 150)
-    private String nameOfLeader;
+    @Email
+    @Size(min = 8, max = 150)
+    private String email;
 }

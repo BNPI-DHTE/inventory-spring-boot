@@ -1,7 +1,9 @@
 package hu.bnpi.dhte.inventory.responsible.dtos;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +11,8 @@ import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class SaveEmployeeCommand {
 
     @NotBlank
@@ -20,19 +24,4 @@ public class SaveEmployeeCommand {
     @Size(min = 8, max = 150)
     private String email;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

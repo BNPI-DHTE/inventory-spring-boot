@@ -1,6 +1,7 @@
 package hu.bnpi.dhte.inventory.responsible.service;
 
 import hu.bnpi.dhte.inventory.responsible.dtos.*;
+import hu.bnpi.dhte.inventory.responsible.exceptions.DepartmentNotFoundException;
 import hu.bnpi.dhte.inventory.responsible.exceptions.EmployeeNotFoundException;
 import hu.bnpi.dhte.inventory.responsible.mapper.ResponsibleMapper;
 import hu.bnpi.dhte.inventory.responsible.model.Department;
@@ -53,12 +54,42 @@ public class ResponsibleService {
     }
 
     public DepartmentDto saveDepartment(SaveDepartmentCommand command) {
-        List<Employee> leader = employeeRepository.findAllByName(Optional.of(command.getName()));
-        if (leader.size() != 1) {
-            throw new EmployeeNotFoundException(command.getName());
-        }
+        List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
         Department department = new Department(command.getName(), leader.get(0));
         departmentRepository.save(department);
         return mapper.toDepartmentDto(department);
+    }
+
+    public EmployeeDto updateEmployee(UpdateEmployeeCommand command) {
+        Employee employee = employeeRepository.findById(command.getId())
+                .orElseThrow(() -> new EmployeeNotFoundException(command.getId()));
+        if (command.getName() != null && !command.getName().isBlank()) {
+            employee.setName(command.getName());
+        }
+        if (command.getEmail() != null && !command.getEmail().isBlank()) {
+            employee.setEmail(command.getEmail());
+        }
+        return mapper.toEmployeeDto(employee);
+    }
+
+    public DepartmentDto updateDepartment(UpdateDepartmentCommand command) {
+        Department department = departmentRepository.findById(command.getId())
+                .orElseThrow(() -> new DepartmentNotFoundException(command.getId()));
+        if (command.getName() != null && !command.getName().isBlank()) {
+            department.setName(command.getName());
+        }
+        if (command.getNameOfLeader() != null && !command.getNameOfLeader().isBlank()) {
+            List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
+            department.setLeader(leader.get(0));
+        }
+        return mapper.toDepartmentDto(department);
+    }
+
+    private List<Employee> getDepartmentLeader(String nameOfLeader) {
+        List<Employee> leader = employeeRepository.findAllByName(Optional.of(nameOfLeader));
+        if (leader.size() != 1) {
+            throw new EmployeeNotFoundException(nameOfLeader);
+        }
+        return leader;
     }
 }

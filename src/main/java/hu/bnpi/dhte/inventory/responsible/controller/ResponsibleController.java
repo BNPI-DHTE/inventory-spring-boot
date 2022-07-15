@@ -43,4 +43,14 @@ public class ResponsibleController {
     public DepartmentDto saveDepartment(@Valid @RequestBody SaveDepartmentCommand command) {
         return service.saveDepartment(command);
     }
+
+    @PutMapping(value = "/employees")
+    public EmployeeDto updateEmployee(@Valid @RequestBody UpdateEmployeeCommand command) {
+        return service.updateEmployee(command);
+    }
+
+    @PutMapping(value = "/departments")
+    public DepartmentDto updateDepartment(@Valid @RequestBody UpdateDepartmentCommand command) {
+        return service.updateDepartment(command);
+    }
 }
