@@ -19,7 +19,7 @@ class ResponsibleMapperIT {
     @Test
     void toEmployeeDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
-        EmployeeDetails result = mapper.toEmployeeDto(employee);
+        EmployeeDetails result = mapper.toEmployeeDetails(employee);
         assertEquals("John Doe", employee.getName());
     }
 
@@ -27,14 +27,14 @@ class ResponsibleMapperIT {
     void toDepartmentDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
         Department department = new Department(2L, "Finance Department", new ArrayList<>(), employee);
-        DepartmentDetails result =  mapper.toDepartmentDto(department);
+        DepartmentDetails result =  mapper.toDepartmentDetails(department);
         assertEquals("John Doe", result.getLeaderName());
     }
 
     @Test
     void employeeToResponsibleDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
-        ResponsibleDetails result = mapper.toResponsibleDto(employee);
+        ResponsibleDetails result = mapper.toResponsibleDetails(employee);
         assertEquals("John Doe", result.getName());
     }
 
@@ -42,7 +42,7 @@ class ResponsibleMapperIT {
     void departmentToResponsibleDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
         Department department = new Department(2L, "Finance Department", new ArrayList<>(), employee);
-        ResponsibleDetails result = mapper.toResponsibleDto(department);
+        ResponsibleDetails result = mapper.toResponsibleDetails(department);
         assertEquals("Finance Department", result.getName());
     }
 }

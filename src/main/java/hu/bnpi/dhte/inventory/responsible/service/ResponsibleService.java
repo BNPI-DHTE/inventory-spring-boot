@@ -34,33 +34,33 @@ public class ResponsibleService {
 
     public List<EmployeeDetails> findEmployees(Optional<String> name) {
         return employeeRepository.findAllByName(name).stream()
-                .map(responsible -> mapper.toEmployeeDto(responsible))
+                .map(responsible -> mapper.toEmployeeDetails(responsible))
                 .toList();
     }
 
     public List<DepartmentDetails> findDepartments(Optional<String> name) {
         return departmentRepository.findAllByName(name).stream()
-                .map(responsible -> mapper.toDepartmentDto(responsible))
+                .map(responsible -> mapper.toDepartmentDetails(responsible))
                 .toList();
     }
 
     public List<ResponsibleDetails> findResponsible(Optional<String> name) {
         return responsibleRepository.findAllByName(name).stream()
-                .map(responsible -> mapper.toResponsibleDto(responsible))
+                .map(responsible -> mapper.toResponsibleDetails(responsible))
                 .toList();
     }
 
     public EmployeeDetails saveEmployee(SaveEmployeeCommand command) {
         Employee employee = new Employee(command.getName(), command.getEmail());
         employeeRepository.save(employee);
-        return mapper.toEmployeeDto(employee);
+        return mapper.toEmployeeDetails(employee);
     }
 
     public DepartmentDetails saveDepartment(SaveDepartmentCommand command) {
         List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
         Department department = new Department(command.getName(), leader.get(0));
         departmentRepository.save(department);
-        return mapper.toDepartmentDto(department);
+        return mapper.toDepartmentDetails(department);
     }
 
     public EmployeeDetails updateEmployee(UpdateEmployeeCommand command) {
@@ -72,7 +72,7 @@ public class ResponsibleService {
         if (command.getEmail() != null && !command.getEmail().isBlank()) {
             employee.setEmail(command.getEmail());
         }
-        return mapper.toEmployeeDto(employee);
+        return mapper.toEmployeeDetails(employee);
     }
 
     public DepartmentDetails updateDepartment(UpdateDepartmentCommand command) {
@@ -85,7 +85,7 @@ public class ResponsibleService {
             List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
             department.setLeader(leader.get(0));
         }
-        return mapper.toDepartmentDto(department);
+        return mapper.toDepartmentDetails(department);
     }
 
     private List<Employee> getDepartmentLeader(String nameOfLeader) {
