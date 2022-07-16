@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -26,5 +27,17 @@ public class Kit {
     private String name;
 
     @OneToMany(mappedBy = "kit")
-    private List<InventoryItem> items;
+    private List<InventoryItem> items = new ArrayList<>();
+
+    public Kit(String name) {
+        this.name = name;
+    }
+
+    public void addInventoryItem (InventoryItem item) {
+        items.add(item);
+    }
+
+    public void removeInventoryItem (InventoryItem item) {
+        items.remove(item);
+    }
 }

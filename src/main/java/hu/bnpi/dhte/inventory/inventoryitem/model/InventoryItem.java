@@ -78,4 +78,22 @@ public class InventoryItem {
     joinColumns = @JoinColumn(name = "inventory_item_id"),
     inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<Event> events;
+
+    public InventoryItem(String inventoryId, ItemType itemType, String name, String description, String serialNumber, String category, String additionalFields, String location, boolean toDisposal, boolean deficit, double startUnitPrice) {
+        this.inventoryId = inventoryId;
+        this.itemType = itemType;
+        this.name = name;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.category = category;
+        this.additionalFields = additionalFields;
+        this.location = location;
+        this.toDisposal = toDisposal;
+        this.deficit = deficit;
+        this.startUnitPrice = startUnitPrice;
+    }
+
+    public void removeKit() {
+        this.kit = null;
+    }
 }
