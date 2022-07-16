@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -19,6 +16,7 @@ import java.util.List;
 @Setter
 @Entity(name = "department")
 @Table(name = "departments")
+@PrimaryKeyJoinColumn(name = "responsible_id")
 public class Department extends Responsible {
 
     @NotNull

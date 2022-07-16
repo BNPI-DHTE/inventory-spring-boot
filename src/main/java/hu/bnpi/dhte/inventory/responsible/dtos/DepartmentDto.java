@@ -16,4 +16,6 @@ public class DepartmentDto {
     private String name;
 
     private String leaderName;
+
+    private String leaderEmail;
 }

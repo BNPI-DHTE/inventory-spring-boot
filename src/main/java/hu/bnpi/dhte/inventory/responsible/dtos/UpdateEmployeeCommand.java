@@ -24,4 +24,9 @@ public class UpdateEmployeeCommand {
     @Email
     @Size(min = 8, max = 150)
     private String email;
+
+    public UpdateEmployeeCommand(long id, String email) {
+        this.id = id;
+        this.email = email;
+    }
 }

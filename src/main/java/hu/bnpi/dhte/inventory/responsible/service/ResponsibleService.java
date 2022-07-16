@@ -34,13 +34,13 @@ public class ResponsibleService {
 
     public List<EmployeeDto> findEmployees(Optional<String> name) {
         return employeeRepository.findAllByName(name).stream()
-                .map(employee -> mapper.toEmployeeDto(employee))
+                .map(responsible -> mapper.toEmployeeDto((Employee) responsible))
                 .toList();
     }
 
     public List<DepartmentDto> findDepartments(Optional<String> name) {
         return departmentRepository.findAllByName(name).stream()
-                .map(department -> mapper.toDepartmentDto(department))
+                .map(responsible -> mapper.toDepartmentDto((Department) responsible))
                 .toList();
     }
 
@@ -64,7 +64,7 @@ public class ResponsibleService {
     }
 
     public EmployeeDto updateEmployee(UpdateEmployeeCommand command) {
-        Employee employee = employeeRepository.findById(command.getId())
+        Employee employee = (Employee) employeeRepository.findById(command.getId())
                 .orElseThrow(() -> new EmployeeNotFoundException(command.getId()));
         if (command.getName() != null && !command.getName().isBlank()) {
             employee.setName(command.getName());
@@ -76,7 +76,7 @@ public class ResponsibleService {
     }
 
     public DepartmentDto updateDepartment(UpdateDepartmentCommand command) {
-        Department department = departmentRepository.findById(command.getId())
+        Department department = (Department) departmentRepository.findById(command.getId())
                 .orElseThrow(() -> new DepartmentNotFoundException(command.getId()));
         if (command.getName() != null && !command.getName().isBlank()) {
             department.setName(command.getName());
@@ -89,7 +89,9 @@ public class ResponsibleService {
     }
 
     private List<Employee> getDepartmentLeader(String nameOfLeader) {
-        List<Employee> leader = employeeRepository.findAllByName(Optional.of(nameOfLeader));
+        List<Employee> leader = employeeRepository.findAllByName(Optional.of(nameOfLeader)).stream()
+                .map(Employee.class::cast)
+                .toList();
         if (leader.size() != 1) {
             throw new EmployeeNotFoundException(nameOfLeader);
         }
@@ -98,9 +100,12 @@ public class ResponsibleService {
 
     public void deleteResponsible(long id) {
         Responsible result = responsibleRepository.findById(id)
-                .orElseThrow(()-> new ResponsibleNotFoundException(id));
+                .orElseThrow(() -> new ResponsibleNotFoundException(id));
         if (!result.getItems().isEmpty()) {
             throw new ResponsibleCanNotDeleteException(id);
+        }
+        if (!departmentRepository.findDepartmentByLeader_Name(result.getName()).isEmpty()) {
+            throw new ResponsibleCanNotDeleteException(result.getName());
         }
         responsibleRepository.delete(result);
     }

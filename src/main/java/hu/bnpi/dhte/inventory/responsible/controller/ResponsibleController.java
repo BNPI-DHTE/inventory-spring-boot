@@ -17,18 +17,18 @@ public class ResponsibleController {
 
     private ResponsibleService service;
 
-    @GetMapping(value = "/{name}")
-    public List<ResponsibleDto> findResponsible(@PathVariable("name") Optional<String> name) {
+    @GetMapping
+    public List<ResponsibleDto> findResponsible(@RequestParam Optional<String> name) {
         return service.findResponsible(name);
     }
 
-    @GetMapping(value = "/employees/{name}")
-    public List<EmployeeDto> findEmployees(@PathVariable("name") Optional<String> name) {
+    @GetMapping(value = "/employees")
+    public List<EmployeeDto> findEmployees(@RequestParam Optional<String> name) {
         return service.findEmployees(name);
     }
 
-    @GetMapping(value = "/departments/{name}")
-    public List<DepartmentDto> findDepartments(@PathVariable("name") Optional<String> name) {
+    @GetMapping(value = "/departments")
+    public List<DepartmentDto> findDepartments(@RequestParam Optional<String> name) {
         return service.findDepartments(name);
     }
 

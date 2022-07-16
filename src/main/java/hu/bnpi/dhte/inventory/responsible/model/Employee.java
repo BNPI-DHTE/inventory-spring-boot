@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +20,7 @@ import java.util.List;
 @Setter
 @Entity(name = "employee")
 @Table(name = "employees")
+@PrimaryKeyJoinColumn(name = "responsible_id")
 public class Employee extends Responsible {
 
     @NotBlank

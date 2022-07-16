@@ -1,0 +1,110 @@
+POST http://localhost:8080/api/responsible/employees
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Kovács Tivadar",
+  "email": "kovacst@ceg.hu"
+}
+
+###
+
+POST http://localhost:8080/api/responsible/employees
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Szabó Rézi",
+  "email": "szabor@ceg.hu"
+}
+
+###
+
+POST http://localhost:8080/api/responsible/employees
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Veress Natália",
+  "email": "veressn@ceg.hu"
+}
+
+###
+
+POST http://localhost:8080/api/responsible/departments
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Tóth Izidor",
+  "email": "tothi@ceg.hu"
+}
+
+###
+
+POST  http://localhost:8080/api/responsible/departments
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Munkaügyi Osztály",
+  "nameOfLeader": "Veress Natália"
+}
+
+###
+
+POST  http://localhost:8080/api/responsible/departments
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Pénzügyi Osztály",
+  "nameOfLeader": "Tóth Izidor"
+}
+
+###
+
+GET http://localhost:8080/api/responsible/employees?name=T%C3%B3th%20Izidor
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/responsible/employees
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/responsible/departments
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/responsible/departments?name=Pénzügy
+Accept: application/json
+
+###
+
+PUT http://localhost:8080/api/responsible/employees
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Kovácsné Tóth Izidor"
+}
+
+###
+
+PUT http://localhost:8080/api/responsible/departments
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "Munka- és Szervezetügyi Osztály"
+}
+
+###
+
+DELETE http://localhost:8080/api/responsible/2
+

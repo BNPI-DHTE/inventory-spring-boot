@@ -9,7 +9,7 @@ public class DepartmentNotFoundException extends AbstractThrowableProblem {
     public DepartmentNotFoundException(long id) {
         super(URI.create("responsible/department-not-found"),
                 "Department not found",
-                Status.NOT_FOUND,
+                Status.BAD_REQUEST,
                 String.format("Department not found with id: %d", id));
     }
 }

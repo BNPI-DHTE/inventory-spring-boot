@@ -14,7 +14,8 @@ public interface ResponsibleMapper {
 
     EmployeeDto toEmployeeDto(Employee employee);
 
-    @Mapping(target = "leaderName", source = "department.leader.name")
+    @Mapping(target = "leaderName", source = "leader.name")
+    @Mapping(target = "leaderEmail", source = "leader.email")
     DepartmentDto toDepartmentDto(Department department);
 
     ResponsibleDto toResponsibleDto(Responsible responsible);

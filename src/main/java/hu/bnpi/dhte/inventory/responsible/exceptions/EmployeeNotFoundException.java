@@ -16,7 +16,7 @@ public class EmployeeNotFoundException extends AbstractThrowableProblem {
     public EmployeeNotFoundException(long id) {
         super(URI.create("responsible/employee-not-found"),
                 "Employee not found",
-                Status.NOT_FOUND,
+                Status.BAD_REQUEST,
                 String.format("Employee not found with id: %d", id));
     }
 }
