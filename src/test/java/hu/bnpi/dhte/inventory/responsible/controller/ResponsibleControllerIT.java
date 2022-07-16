@@ -51,10 +51,10 @@ class ResponsibleControllerIT {
         client.get()
                 .uri("/api/responsible")
                 .exchange()
-                .expectBodyList(ResponsibleDto.class)
+                .expectBodyList(ResponsibleDetails.class)
                 .hasSize(7)
                 .value(list -> assertThat(list)
-                        .extracting(ResponsibleDto::getName)
+                        .extracting(ResponsibleDetails::getName)
                         .contains("John Doe", "Jill Doe", "HR Department", "Finance Department"));
     }
 
@@ -63,10 +63,10 @@ class ResponsibleControllerIT {
         client.get()
                 .uri("/api/responsible/employees")
                 .exchange()
-                .expectBodyList(EmployeeDto.class)
+                .expectBodyList(EmployeeDetails.class)
                 .hasSize(5)
                 .value(list -> assertThat(list)
-                        .extracting(EmployeeDto::getName)
+                        .extracting(EmployeeDetails::getName)
                         .containsExactlyInAnyOrder("Jane Doe", "John Doe", "Jill Doe", "Jack Doe", "Joe Doe"));
     }
 
@@ -75,10 +75,10 @@ class ResponsibleControllerIT {
         client.get()
                 .uri("/api/responsible/departments")
                 .exchange()
-                .expectBodyList(DepartmentDto.class)
+                .expectBodyList(DepartmentDetails.class)
                 .hasSize(2)
                 .value(list -> assertThat(list)
-                        .extracting(DepartmentDto::getLeaderEmail)
+                        .extracting(DepartmentDetails::getLeaderEmail)
                         .containsExactlyInAnyOrder("janeDoe@mail.com", "johnDoe@mail.com"));
     }
 
@@ -89,7 +89,7 @@ class ResponsibleControllerIT {
                 .bodyValue(new SaveEmployeeCommand("Jacob Doe", "jacobDoe@mail.com"))
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(EmployeeDto.class)
+                .expectBody(EmployeeDetails.class)
                 .value(employeeDto -> assertEquals("jacobDoe@mail.com", employeeDto.getEmail()));
     }
 
@@ -100,7 +100,7 @@ class ResponsibleControllerIT {
                 .bodyValue(new SaveDepartmentCommand("Legal Department", "Jill Doe"))
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(DepartmentDto.class)
+                .expectBody(DepartmentDetails.class)
                 .value(departmentDto -> assertEquals("jillDoe@mail.com", departmentDto.getLeaderEmail()));
     }
 
@@ -110,7 +110,7 @@ class ResponsibleControllerIT {
                 .uri("/api/responsible/employees")
                 .bodyValue(new UpdateEmployeeCommand(janeDoe.getId(), "Jane Smith Doe", "janeSmithDoe@mail.com"))
                 .exchange()
-                .expectBody(EmployeeDto.class)
+                .expectBody(EmployeeDetails.class)
                 .value(employeeDto -> assertEquals("janeSmithDoe@mail.com", employeeDto.getEmail()));
     }
 
@@ -120,7 +120,7 @@ class ResponsibleControllerIT {
                 .uri("/api/responsible/departments")
                 .bodyValue(new UpdateDepartmentCommand(hrDepartment.getId(), "Human Resources Department", "Joe Doe"))
                 .exchange()
-                .expectBody(DepartmentDto.class)
+                .expectBody(DepartmentDetails.class)
                 .value(departmentDto -> assertEquals("joeDoe@mail.com", departmentDto.getLeaderEmail()))
                 .value(departmentDto -> assertEquals("Human Resources Department", departmentDto.getName()));
     }
@@ -135,10 +135,10 @@ class ResponsibleControllerIT {
         client.get()
                 .uri("/api/responsible/departments")
                 .exchange()
-                .expectBodyList(DepartmentDto.class)
+                .expectBodyList(DepartmentDetails.class)
                 .hasSize(1)
                 .value(list -> assertThat(list)
-                        .extracting(DepartmentDto::getName)
+                        .extracting(DepartmentDetails::getName)
                         .containsExactlyInAnyOrder("Finance Department"));
     }
 }

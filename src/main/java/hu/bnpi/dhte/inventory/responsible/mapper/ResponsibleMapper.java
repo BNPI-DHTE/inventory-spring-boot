@@ -1,8 +1,8 @@
 package hu.bnpi.dhte.inventory.responsible.mapper;
 
-import hu.bnpi.dhte.inventory.responsible.dtos.DepartmentDto;
-import hu.bnpi.dhte.inventory.responsible.dtos.EmployeeDto;
-import hu.bnpi.dhte.inventory.responsible.dtos.ResponsibleDto;
+import hu.bnpi.dhte.inventory.responsible.dtos.DepartmentDetails;
+import hu.bnpi.dhte.inventory.responsible.dtos.EmployeeDetails;
+import hu.bnpi.dhte.inventory.responsible.dtos.ResponsibleDetails;
 import hu.bnpi.dhte.inventory.responsible.model.Department;
 import hu.bnpi.dhte.inventory.responsible.model.Employee;
 import hu.bnpi.dhte.inventory.responsible.model.Responsible;
@@ -12,11 +12,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ResponsibleMapper {
 
-    EmployeeDto toEmployeeDto(Employee employee);
+    EmployeeDetails toEmployeeDto(Employee employee);
 
     @Mapping(target = "leaderName", source = "leader.name")
     @Mapping(target = "leaderEmail", source = "leader.email")
-    DepartmentDto toDepartmentDto(Department department);
+    DepartmentDetails toDepartmentDto(Department department);
 
-    ResponsibleDto toResponsibleDto(Responsible responsible);
+    ResponsibleDetails toResponsibleDto(Responsible responsible);
 }

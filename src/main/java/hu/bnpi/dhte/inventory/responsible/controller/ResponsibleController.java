@@ -18,39 +18,39 @@ public class ResponsibleController {
     private ResponsibleService service;
 
     @GetMapping
-    public List<ResponsibleDto> findResponsible(@RequestParam Optional<String> name) {
+    public List<ResponsibleDetails> findResponsible(@RequestParam Optional<String> name) {
         return service.findResponsible(name);
     }
 
     @GetMapping(value = "/employees")
-    public List<EmployeeDto> findEmployees(@RequestParam Optional<String> name) {
+    public List<EmployeeDetails> findEmployees(@RequestParam Optional<String> name) {
         return service.findEmployees(name);
     }
 
     @GetMapping(value = "/departments")
-    public List<DepartmentDto> findDepartments(@RequestParam Optional<String> name) {
+    public List<DepartmentDetails> findDepartments(@RequestParam Optional<String> name) {
         return service.findDepartments(name);
     }
 
     @PostMapping(value = "/employees")
     @ResponseStatus(HttpStatus.CREATED)
-    public EmployeeDto saveEmployee(@Valid @RequestBody SaveEmployeeCommand command) {
+    public EmployeeDetails saveEmployee(@Valid @RequestBody SaveEmployeeCommand command) {
         return service.saveEmployee(command);
     }
 
     @PostMapping(value = "/departments")
     @ResponseStatus(HttpStatus.CREATED)
-    public DepartmentDto saveDepartment(@Valid @RequestBody SaveDepartmentCommand command) {
+    public DepartmentDetails saveDepartment(@Valid @RequestBody SaveDepartmentCommand command) {
         return service.saveDepartment(command);
     }
 
     @PutMapping(value = "/employees")
-    public EmployeeDto updateEmployee(@Valid @RequestBody UpdateEmployeeCommand command) {
+    public EmployeeDetails updateEmployee(@Valid @RequestBody UpdateEmployeeCommand command) {
         return service.updateEmployee(command);
     }
 
     @PutMapping(value = "/departments")
-    public DepartmentDto updateDepartment(@Valid @RequestBody UpdateDepartmentCommand command) {
+    public DepartmentDetails updateDepartment(@Valid @RequestBody UpdateDepartmentCommand command) {
         return service.updateDepartment(command);
     }
 

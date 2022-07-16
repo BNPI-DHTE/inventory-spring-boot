@@ -1,8 +1,8 @@
 package hu.bnpi.dhte.inventory.responsible.mapper;
 
-import hu.bnpi.dhte.inventory.responsible.dtos.DepartmentDto;
-import hu.bnpi.dhte.inventory.responsible.dtos.EmployeeDto;
-import hu.bnpi.dhte.inventory.responsible.dtos.ResponsibleDto;
+import hu.bnpi.dhte.inventory.responsible.dtos.DepartmentDetails;
+import hu.bnpi.dhte.inventory.responsible.dtos.EmployeeDetails;
+import hu.bnpi.dhte.inventory.responsible.dtos.ResponsibleDetails;
 import hu.bnpi.dhte.inventory.responsible.model.Department;
 import hu.bnpi.dhte.inventory.responsible.model.Employee;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ class ResponsibleMapperIT {
     @Test
     void toEmployeeDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
-        EmployeeDto result = mapper.toEmployeeDto(employee);
+        EmployeeDetails result = mapper.toEmployeeDto(employee);
         assertEquals("John Doe", employee.getName());
     }
 
@@ -27,14 +27,14 @@ class ResponsibleMapperIT {
     void toDepartmentDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
         Department department = new Department(2L, "Finance Department", new ArrayList<>(), employee);
-        DepartmentDto result =  mapper.toDepartmentDto(department);
+        DepartmentDetails result =  mapper.toDepartmentDto(department);
         assertEquals("John Doe", result.getLeaderName());
     }
 
     @Test
     void employeeToResponsibleDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
-        ResponsibleDto result = mapper.toResponsibleDto(employee);
+        ResponsibleDetails result = mapper.toResponsibleDto(employee);
         assertEquals("John Doe", result.getName());
     }
 
@@ -42,7 +42,7 @@ class ResponsibleMapperIT {
     void departmentToResponsibleDtoTest() {
         Employee employee = new Employee(1L, "John Doe", new ArrayList<>(), "johndoe@mail.com");
         Department department = new Department(2L, "Finance Department", new ArrayList<>(), employee);
-        ResponsibleDto result = mapper.toResponsibleDto(department);
+        ResponsibleDetails result = mapper.toResponsibleDto(department);
         assertEquals("Finance Department", result.getName());
     }
 }

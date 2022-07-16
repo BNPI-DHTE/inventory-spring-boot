@@ -32,39 +32,39 @@ public class ResponsibleService {
 
     private ResponsibleMapper mapper;
 
-    public List<EmployeeDto> findEmployees(Optional<String> name) {
+    public List<EmployeeDetails> findEmployees(Optional<String> name) {
         return employeeRepository.findAllByName(name).stream()
-                .map(responsible -> mapper.toEmployeeDto((Employee) responsible))
+                .map(responsible -> mapper.toEmployeeDto(responsible))
                 .toList();
     }
 
-    public List<DepartmentDto> findDepartments(Optional<String> name) {
+    public List<DepartmentDetails> findDepartments(Optional<String> name) {
         return departmentRepository.findAllByName(name).stream()
-                .map(responsible -> mapper.toDepartmentDto((Department) responsible))
+                .map(responsible -> mapper.toDepartmentDto(responsible))
                 .toList();
     }
 
-    public List<ResponsibleDto> findResponsible(Optional<String> name) {
+    public List<ResponsibleDetails> findResponsible(Optional<String> name) {
         return responsibleRepository.findAllByName(name).stream()
                 .map(responsible -> mapper.toResponsibleDto(responsible))
                 .toList();
     }
 
-    public EmployeeDto saveEmployee(SaveEmployeeCommand command) {
+    public EmployeeDetails saveEmployee(SaveEmployeeCommand command) {
         Employee employee = new Employee(command.getName(), command.getEmail());
         employeeRepository.save(employee);
         return mapper.toEmployeeDto(employee);
     }
 
-    public DepartmentDto saveDepartment(SaveDepartmentCommand command) {
+    public DepartmentDetails saveDepartment(SaveDepartmentCommand command) {
         List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
         Department department = new Department(command.getName(), leader.get(0));
         departmentRepository.save(department);
         return mapper.toDepartmentDto(department);
     }
 
-    public EmployeeDto updateEmployee(UpdateEmployeeCommand command) {
-        Employee employee = (Employee) employeeRepository.findById(command.getId())
+    public EmployeeDetails updateEmployee(UpdateEmployeeCommand command) {
+        Employee employee = employeeRepository.findById(command.getId())
                 .orElseThrow(() -> new EmployeeNotFoundException(command.getId()));
         if (command.getName() != null && !command.getName().isBlank()) {
             employee.setName(command.getName());
@@ -75,8 +75,8 @@ public class ResponsibleService {
         return mapper.toEmployeeDto(employee);
     }
 
-    public DepartmentDto updateDepartment(UpdateDepartmentCommand command) {
-        Department department = (Department) departmentRepository.findById(command.getId())
+    public DepartmentDetails updateDepartment(UpdateDepartmentCommand command) {
+        Department department = departmentRepository.findById(command.getId())
                 .orElseThrow(() -> new DepartmentNotFoundException(command.getId()));
         if (command.getName() != null && !command.getName().isBlank()) {
             department.setName(command.getName());
