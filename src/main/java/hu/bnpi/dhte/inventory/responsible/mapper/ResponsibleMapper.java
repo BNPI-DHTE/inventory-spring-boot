@@ -12,11 +12,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ResponsibleMapper {
 
-    EmployeeDetails toEmployeeDto(Employee employee);
+    EmployeeDetails toEmployeeDetails(Employee employee);
 
     @Mapping(target = "leaderName", source = "leader.name")
     @Mapping(target = "leaderEmail", source = "leader.email")
-    DepartmentDetails toDepartmentDto(Department department);
+    DepartmentDetails toDepartmentDetails(Department department);
 
-    ResponsibleDetails toResponsibleDto(Responsible responsible);
+    ResponsibleDetails toResponsibleDetails(Responsible responsible);
 }
