@@ -121,8 +121,7 @@ public class InventoryItemService {
     public void removeKit(long kitId) {
         Kit kit = kitRepository.findById(kitId)
                 .orElseThrow(() -> new KitNotFoundException(kitId));
-        kit.getItems().stream()
-                .forEach(InventoryItem::removeKit);
+        kit.getItems().forEach(InventoryItem::removeKit);
         kitRepository.delete(kit);
     }
 }
