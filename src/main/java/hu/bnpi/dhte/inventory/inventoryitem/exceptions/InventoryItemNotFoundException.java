@@ -9,7 +9,7 @@ public class InventoryItemNotFoundException extends AbstractThrowableProblem {
     public InventoryItemNotFoundException(String inventoryId) {
         super(URI.create("inventoryitem/item-not-found"),
                 "Inventory item not found",
-                Status.BAD_REQUEST,
+                Status.NOT_FOUND,
                 String.format("Item not found with inventory id: %s", inventoryId));
     }
 }

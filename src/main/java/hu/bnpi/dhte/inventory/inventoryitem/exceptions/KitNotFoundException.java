@@ -9,7 +9,7 @@ public class KitNotFoundException extends AbstractThrowableProblem {
     public KitNotFoundException(long kitId) {
         super(URI.create("inventoryitem/kit-not-found"),
                 "Kit not found",
-                Status.BAD_REQUEST,
+                Status.NOT_FOUND,
                 String.format("Kit not found with id: %d", kitId));
     }
 }

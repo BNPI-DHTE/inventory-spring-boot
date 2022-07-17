@@ -9,7 +9,7 @@ public class ResponsibleNotFoundException extends AbstractThrowableProblem {
     public ResponsibleNotFoundException(long id) {
         super(URI.create("responsible/not-found"),
                 "Responsible not found",
-                Status.BAD_REQUEST,
+                Status.NOT_FOUND,
                 String.format("Responsible not found with id: %d", id));
     }
 }
