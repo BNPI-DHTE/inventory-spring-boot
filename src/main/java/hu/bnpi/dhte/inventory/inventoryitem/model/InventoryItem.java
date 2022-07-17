@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
+//TODO Refactor this class and its Dto classes into multiple embeddable classes!
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

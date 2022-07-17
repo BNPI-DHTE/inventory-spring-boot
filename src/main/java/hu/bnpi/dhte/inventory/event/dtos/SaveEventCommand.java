@@ -1,13 +1,12 @@
 package hu.bnpi.dhte.inventory.event.dtos;
 
 import hu.bnpi.dhte.inventory.event.model.EventType;
-import hu.bnpi.dhte.inventory.inventoryitem.dtos.InventoryItemDetails;
-import hu.bnpi.dhte.inventory.responsible.model.Responsible;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,21 +14,27 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class EventDetails {
+public class SaveEventCommand {
 
-    private Long id;
+    //TODO Custom validations on responsible, inventoryIds;
 
+    @NotNull
+    @PastOrPresent
     private LocalDate date;
 
+    @NotBlank
+    @Size(max = 50)
     private String noteNumber;
 
-    private List<InventoryItemDetails> items;
+    @NotEmpty
+    private List<String> inventoryIds;
 
+    @NotNull
     private EventType eventType;
 
     private String description;
 
-    private Responsible oldResponsible;
+    private String nameOfOldResponsible;
 
-    private Responsible newResponsible;
+    private String nameOfNewResponsible;
 }

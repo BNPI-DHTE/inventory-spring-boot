@@ -12,4 +12,11 @@ public class ResponsibleNotFoundException extends AbstractThrowableProblem {
                 Status.NOT_FOUND,
                 String.format("Responsible not found with id: %d", id));
     }
+
+    public ResponsibleNotFoundException(String nameOfResponsible) {
+        super(URI.create("responsible/not-found"),
+                "Responsible not found",
+                Status.NOT_FOUND,
+                String.format("Responsible not found with name: %s", nameOfResponsible));
+    }
 }

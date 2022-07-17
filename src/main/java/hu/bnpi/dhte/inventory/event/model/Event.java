@@ -54,4 +54,14 @@ public class Event {
     @OneToOne
     @JoinColumn(name = "new_responsible")
     private Responsible newResponsible;
+
+    public Event(LocalDate date, String noteNumber, List<InventoryItem> items, EventType eventType, String description, Responsible oldResponsible, Responsible newResponsible) {
+        this.date = date;
+        this.noteNumber = noteNumber;
+        this.items = items;
+        this.eventType = eventType;
+        this.description = description;
+        this.oldResponsible = oldResponsible;
+        this.newResponsible = newResponsible;
+    }
 }

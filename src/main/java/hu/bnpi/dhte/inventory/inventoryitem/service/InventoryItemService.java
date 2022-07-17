@@ -66,6 +66,8 @@ public class InventoryItemService {
         return mapper.toKitDetails(kit);
     }
 
+    //TODO Refactor or simplify this huge method!
+
     public InventoryItemDetails updateInventoryItem(String inventoryId, UpdateInventoryItemCommand command) {
         InventoryItem item = getInventoryItemByInventoryId(inventoryId);
         if (command.getInventoryId() != null && !command.getInventoryId().isBlank() && !command.getInventoryId().equals(item.getInventoryId())) {
