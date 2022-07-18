@@ -14,22 +14,22 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SaveEventCommand {
+public class CreateEventCommand {
 
     //TODO Custom validations on responsible, inventoryIds;
 
-    @NotNull
+    @NotNull(message = "Date cannot be null!")
     @PastOrPresent
     private LocalDate date;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank(message = "Note's serial number cannot be null!")
+    @Size(max = 50, message = "Note's serial number cannot be longer than 50 characters!")
     private String noteNumber;
 
-    @NotEmpty
+    @NotEmpty(message = "List of inventory items cannot be empty!")
     private List<String> inventoryIds;
 
-    @NotNull
+    @NotNull(message = "Event type cannot be null!")
     private EventType eventType;
 
     private String description;

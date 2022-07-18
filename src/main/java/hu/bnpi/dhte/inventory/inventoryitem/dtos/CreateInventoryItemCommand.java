@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
@@ -17,31 +17,36 @@ import javax.validation.constraints.Size;
 @Setter
 public class CreateInventoryItemCommand {
 
+    //TODO: Unique validation of Inventory Id!
+
+    @NotBlank(message = "Inventory id cannot be blank!")
+    @Size(max = 50, message = "Inventory id cannot be longer than 50 characters!")
     private String inventoryId;
 
-    @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "Item type cannot be null!")
     private ItemType itemType;
 
-    @Size(max = 100)
+    @NotBlank(message = "Inventory item's name cannot be blank!")
+    @Size(max = 100, message = "Inventory item's name cannot be longer than 50 characters!")
     private String name;
 
     private String description;
 
-    @Size(max = 100)
+    @Size(max = 100, message = "Serial number cannot be longer than 100 characters!")
     private String serialNumber;
 
-    @Size(max = 100)
+    @Size(max = 100, message = "Category cannot be longer than 100 characters!")
     private String category;
 
     private String additionalFields;
 
-    @Size(max = 100)
+    @Size(max = 100, message = "Location cannot be longer than 50 characters!")
     private String location;
 
     private boolean toDisposal;
 
     private boolean deficit;
 
-    @PositiveOrZero
-    private double startUnitPrice;
+    @PositiveOrZero(message = "Initial price cannot be negative!")
+    private double initialPrice;
 }

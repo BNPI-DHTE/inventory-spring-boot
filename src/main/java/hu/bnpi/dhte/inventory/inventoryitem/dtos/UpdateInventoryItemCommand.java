@@ -44,5 +44,5 @@ public class UpdateInventoryItemCommand {
     private String location;
 
     @PositiveOrZero
-    private double startUnitPrice;
+    private double initialPrice;
 }

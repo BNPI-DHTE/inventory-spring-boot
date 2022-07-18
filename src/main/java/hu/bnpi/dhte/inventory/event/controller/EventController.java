@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.event.controller;
 
 import hu.bnpi.dhte.inventory.event.dtos.EventDetails;
-import hu.bnpi.dhte.inventory.event.dtos.SaveEventCommand;
+import hu.bnpi.dhte.inventory.event.dtos.CreateEventCommand;
 import hu.bnpi.dhte.inventory.event.service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class EventController {
     }
 
     @PostMapping
-    public EventDetails saveEvent(@Valid @RequestBody SaveEventCommand command) {
+    public EventDetails saveEvent(@Valid @RequestBody CreateEventCommand command) {
         return service.saveEvent(command);
     }
 }

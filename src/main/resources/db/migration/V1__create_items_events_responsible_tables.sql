@@ -38,7 +38,7 @@ CREATE TABLE inventory_items
     location          VARCHAR(100),
     to_disposal       BOOLEAN                                 NOT NULL,
     deficit           BOOLEAN                                 NOT NULL,
-    start_unit_price  DOUBLE PRECISION                        NOT NULL,
+    initial_price     DOUBLE PRECISION                        NOT NULL,
     responsible_id    BIGINT                                  NOT NULL,
     CONSTRAINT pk_inventory_items PRIMARY KEY (id)
 );

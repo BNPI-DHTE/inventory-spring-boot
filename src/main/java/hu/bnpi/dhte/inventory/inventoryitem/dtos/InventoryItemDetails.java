@@ -37,7 +37,7 @@ public class InventoryItemDetails {
 
     private boolean deficit;
 
-    private double startUnitPrice;
+    private double initialPrice;
 
     private ResponsibleDetails responsible;
 }

@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.event.service;
 
 import hu.bnpi.dhte.inventory.event.dtos.EventDetails;
-import hu.bnpi.dhte.inventory.event.dtos.SaveEventCommand;
+import hu.bnpi.dhte.inventory.event.dtos.CreateEventCommand;
 import hu.bnpi.dhte.inventory.event.exceptions.EventNotFoundException;
 import hu.bnpi.dhte.inventory.event.mapper.EventMapper;
 import hu.bnpi.dhte.inventory.event.model.Event;
@@ -52,7 +52,7 @@ public class EventService {
                 .toList();
     }
 
-    public EventDetails saveEvent(SaveEventCommand command) {
+    public EventDetails saveEvent(CreateEventCommand command) {
         List<InventoryItem> items = command.getInventoryIds().stream()
                 .map(id -> itemRepository.findByInventoryId(id)
                         .orElseThrow(() -> new InventoryItemNotFoundException(id)))

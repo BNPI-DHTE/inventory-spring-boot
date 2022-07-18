@@ -55,7 +55,7 @@ public class InventoryItemService {
                 command.getLocation(),
                 command.isToDisposal(),
                 command.isDeficit(),
-                command.getStartUnitPrice());
+                command.getInitialPrice());
         inventoryItemRepository.save(item);
         return mapper.toInventoryItemDetails(item);
     }
@@ -70,9 +70,6 @@ public class InventoryItemService {
 
     public InventoryItemDetails updateInventoryItem(String inventoryId, UpdateInventoryItemCommand command) {
         InventoryItem item = getInventoryItemByInventoryId(inventoryId);
-        if (command.getInventoryId() != null && !command.getInventoryId().isBlank() && !command.getInventoryId().equals(item.getInventoryId())) {
-            item.setInventoryId(command.getInventoryId());
-        }
         if (command.getName() != null && !command.getName().isBlank() && !command.getName().equals(item.getName())) {
             item.setName(command.getName());
         }
@@ -91,8 +88,8 @@ public class InventoryItemService {
         if (command.getLocation() != null && !command.getLocation().isBlank() && !command.getLocation().equals(item.getLocation())) {
             item.setLocation(command.getLocation());
         }
-        if (command.getStartUnitPrice() != item.getStartUnitPrice()) {
-            item.setStartUnitPrice(command.getStartUnitPrice());
+        if (command.getInitialPrice() != item.getInitialPrice()) {
+            item.setInitialPrice(command.getInitialPrice());
         }
         return mapper.toInventoryItemDetails(item);
     }

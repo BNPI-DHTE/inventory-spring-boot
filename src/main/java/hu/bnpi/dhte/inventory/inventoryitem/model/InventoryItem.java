@@ -66,8 +66,8 @@ public class InventoryItem {
     private boolean deficit;
 
     @PositiveOrZero
-    @Column(name = "start_unit_price", scale = 2)
-    private double startUnitPrice;
+    @Column(name = "initial_price", scale = 2)
+    private double initialPrice;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -81,7 +81,7 @@ public class InventoryItem {
     inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<Event> events;
 
-    public InventoryItem(String inventoryId, ItemType itemType, String name, String description, String serialNumber, String category, String additionalFields, String location, boolean toDisposal, boolean deficit, double startUnitPrice) {
+    public InventoryItem(String inventoryId, ItemType itemType, String name, String description, String serialNumber, String category, String additionalFields, String location, boolean toDisposal, boolean deficit, double initialPrice) {
         this.inventoryId = inventoryId;
         this.itemType = itemType;
         this.name = name;
@@ -92,7 +92,7 @@ public class InventoryItem {
         this.location = location;
         this.toDisposal = toDisposal;
         this.deficit = deficit;
-        this.startUnitPrice = startUnitPrice;
+        this.initialPrice = initialPrice;
     }
 
     public void removeKit() {
