@@ -1,5 +1,6 @@
 package hu.bnpi.dhte.inventory;
 
+import hu.bnpi.dhte.inventory.files.readers.ExcelReader;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
@@ -22,5 +23,10 @@ public class InventoryApplication {
                         .version("0.0.2-SNAPSHOT")
                         .description("REST Api for inventory CRUD operations")
                         .contact(new Contact().name("Attila Ferenc")));
+    }
+
+    @Bean
+    public ExcelReader createExcelReader () {
+        return new ExcelReader();
     }
 }

@@ -1,3 +1,4 @@
+-- TODO: insert data_of_use column into inventory_items table
 CREATE TABLE departments
 (
     responsible_id BIGINT NOT NULL,

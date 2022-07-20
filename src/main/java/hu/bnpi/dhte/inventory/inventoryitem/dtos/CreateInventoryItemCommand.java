@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +27,10 @@ public class CreateInventoryItemCommand {
     @NotBlank(message = "Inventory item's name cannot be blank!")
     @Size(max = 100, message = "Inventory item's name cannot be longer than 50 characters!")
     private String name;
+
+    @NotBlank(message = "Date of use cannot be blank!")
+    @PastOrPresent(message = "date of use cannot be in the future!")
+    private LocalDate dateOfUse;
 
     private String description;
 

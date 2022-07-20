@@ -48,6 +48,7 @@ public class InventoryItemService {
         InventoryItem item = new InventoryItem(command.getInventoryId(),
                 command.getItemType(),
                 command.getName(),
+                command.getDateOfUse(),
                 command.getDescription(),
                 command.getSerialNumber(),
                 command.getCategory(),

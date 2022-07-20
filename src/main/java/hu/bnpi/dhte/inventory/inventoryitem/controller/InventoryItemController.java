@@ -38,7 +38,7 @@ public class InventoryItemController {
         return service.saveInventoryItem(command);
     }
 
-    @PostMapping("/kits")
+    @PostMapping(value = "/kits")
     @ResponseStatus(HttpStatus.CREATED)
     public KitDetails saveKit(@Valid @RequestBody CreateKitCommand command) {
         return service.saveKit(command);

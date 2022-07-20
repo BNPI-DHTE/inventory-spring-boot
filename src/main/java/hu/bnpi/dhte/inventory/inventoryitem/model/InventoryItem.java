@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
+import java.time.LocalDate;
 import java.util.List;
 
 //TODO Refactor this class and its Dto classes into multiple embeddable classes!
@@ -40,6 +41,10 @@ public class InventoryItem {
     @NotBlank
     @Column(length = 100, nullable = false)
     private String name;
+
+    @NotNull
+    @Column(name = "date_of_use")
+    private LocalDate dateOfUse;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -81,10 +86,11 @@ public class InventoryItem {
     inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<Event> events;
 
-    public InventoryItem(String inventoryId, ItemType itemType, String name, String description, String serialNumber, String category, String additionalFields, String location, boolean toDisposal, boolean deficit, double initialPrice) {
+    public InventoryItem(String inventoryId, ItemType itemType, String name, LocalDate dateOfUse, String description, String serialNumber, String category, String additionalFields, String location, boolean toDisposal, boolean deficit, double initialPrice) {
         this.inventoryId = inventoryId;
         this.itemType = itemType;
         this.name = name;
+        this.dateOfUse = dateOfUse;
         this.description = description;
         this.serialNumber = serialNumber;
         this.category = category;

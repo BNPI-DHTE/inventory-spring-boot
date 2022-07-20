@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -20,6 +22,8 @@ public class InventoryItemDetails {
     private ItemType itemType;
 
     private String name;
+
+    private LocalDate dateOfUse;
 
     private String description;
 
