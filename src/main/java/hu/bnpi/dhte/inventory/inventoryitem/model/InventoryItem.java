@@ -54,6 +54,7 @@ public class InventoryItem {
     @Column(length = 100, nullable = false)
     private String category;
 
+    //TODO We'll need ManyToMany relation!
     @ManyToOne
     @JoinColumn(name = "kit_id")
     private Kit kit;
@@ -102,6 +103,16 @@ public class InventoryItem {
         this.toDisposal = toDisposal;
         this.deficit = deficit;
         this.initialPrice = initialPrice;
+        this.amount = amount;
+    }
+
+    public InventoryItem(String inventoryId, String name, LocalDate dateOfUse, String description, String serialNumber, String additionalFields, int amount) {
+        this.inventoryId = inventoryId;
+        this.name = name;
+        this.dateOfUse = dateOfUse;
+        this.description = description;
+        this.serialNumber = serialNumber;
+        this.additionalFields = additionalFields;
         this.amount = amount;
     }
 

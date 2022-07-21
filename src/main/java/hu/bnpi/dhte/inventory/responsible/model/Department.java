@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @AllArgsConstructor
@@ -31,5 +30,9 @@ public class Department extends Responsible {
     public Department(String responsibleId, String name, Employee leader) {
         super(responsibleId, name);
         this.leader = leader;
+    }
+
+    public Department(String responsibleId, String name) {
+        super(responsibleId, name);
     }
 }

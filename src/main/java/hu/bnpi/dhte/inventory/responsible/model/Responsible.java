@@ -46,4 +46,9 @@ public abstract class Responsible {
         this.name = name;
         this.items = items;
     }
+
+    public void addInventoryItem(InventoryItem item) {
+        this.items.add(item);
+        item.setResponsible(this);
+    }
 }

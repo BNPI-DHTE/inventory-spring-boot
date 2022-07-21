@@ -1,15 +1,18 @@
 package hu.bnpi.dhte.inventory.files.readers;
 
+import hu.bnpi.dhte.inventory.files.dtos.TableCommand;
 import hu.bnpi.dhte.inventory.files.exceptions.CannotReadFileException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.*;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class ExcelReader implements FileReader {
 
@@ -22,10 +25,11 @@ public class ExcelReader implements FileReader {
      * Serial Number, Amount, Notes
      */
 
+    //TODO Use a custom command class instead of Map!
     @Override
-    public List<Map<String, String>> readTable(Path path) {
-        List<Map<String, String>> items = new ArrayList<>();
-        try (FileInputStream inputStream = new FileInputStream(path.toString())) {
+    public List<TableCommand> readTable(MultipartFile file) {
+        List<TableCommand> items = new ArrayList<>();
+        try (InputStream inputStream = file.getInputStream()) {
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
@@ -33,18 +37,29 @@ public class ExcelReader implements FileReader {
                 if (rowIterator.next().getRowNum() == 0) {
                     rowIterator.next();
                 } else {
-                    Map<String, String> item = new HashMap<>();
                     XSSFRow row = (XSSFRow) rowIterator.next();
-                    for (int i = 0; i < keys.size(); i++) {
-                        String value = row.getCell(i).toString();
-                        item.put(keys.get(i), value);
-                    }
+                    TableCommand item = new TableCommand(
+                            row.getCell(0).toString(),
+                            row.getCell(1).toString(),
+                            row.getCell(2).toString(),
+                            row.getCell(3).toString(),
+                            row.getCell(4).toString(),
+                            row.getCell(5).toString(),
+                            row.getCell(6).toString(),
+                            row.getCell(7).toString(),
+                            row.getCell(8).toString(),
+                            row.getCell(9).toString(),
+                            row.getCell(10).toString(),
+                            row.getCell(11).toString(),
+                            row.getCell(12).toString(),
+                            row.getCell(13).toString(),
+                            row.getCell(14).toString());
                     items.add(item);
                 }
             }
             return items;
         } catch (IOException ioe) {
-            throw new CannotReadFileException(path.toString(), ioe);
+            throw new CannotReadFileException(file.getOriginalFilename(), ioe);
         }
     }
 }

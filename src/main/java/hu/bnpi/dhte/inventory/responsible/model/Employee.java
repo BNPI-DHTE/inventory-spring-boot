@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @AllArgsConstructor
@@ -35,5 +34,9 @@ public class Employee extends Responsible {
     public Employee(String responsibleId, String name, String email) {
         super(responsibleId, name);
         this.email = email;
+    }
+
+    public Employee(String responsibleId, String name) {
+        super(responsibleId, name);
     }
 }
