@@ -51,14 +51,14 @@ public class ResponsibleService {
     }
 
     public EmployeeDetails saveEmployee(SaveEmployeeCommand command) {
-        Employee employee = new Employee(command.getName(), command.getEmail());
+        Employee employee = new Employee(command.getResponsibleId(), command.getName(), command.getEmail());
         employeeRepository.save(employee);
         return mapper.toEmployeeDetails(employee);
     }
 
     public DepartmentDetails saveDepartment(SaveDepartmentCommand command) {
-        List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
-        Department department = new Department(command.getName(), leader.get(0));
+        List<Employee> leader = getDepartmentLeader(command.getResponsibleIdOfLeader());
+        Department department = new Department(command.getResponsibleId(), command.getName(), leader.get(0));
         departmentRepository.save(department);
         return mapper.toDepartmentDetails(department);
     }
@@ -88,12 +88,12 @@ public class ResponsibleService {
         return mapper.toDepartmentDetails(department);
     }
 
-    private List<Employee> getDepartmentLeader(String nameOfLeader) {
-        List<Employee> leader = employeeRepository.findAllByName(Optional.of(nameOfLeader)).stream()
+    private List<Employee> getDepartmentLeader(String responsibleId) {
+        List<Employee> leader = employeeRepository.findAllByResponsibleId(responsibleId).stream()
                 .map(Employee.class::cast)
                 .toList();
         if (leader.size() != 1) {
-            throw new EmployeeNotFoundException(nameOfLeader);
+            throw new EmployeeNotFoundException(responsibleId);
         }
         return leader;
     }

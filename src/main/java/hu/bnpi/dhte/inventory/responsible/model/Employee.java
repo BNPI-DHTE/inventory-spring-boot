@@ -23,18 +23,17 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "responsible_id")
 public class Employee extends Responsible {
 
-    @NotBlank
     @Email
-    @Column(length = 150, nullable = false)
+    @Column(length = 150)
     private String email;
 
-    public Employee(long id, String name, List<InventoryItem> items, String email) {
-        super(id, name, items);
+    public Employee(long id, String responsibleId, String name, List<InventoryItem> items, String email) {
+        super(id, responsibleId, name, items);
         this.email = email;
     }
 
-    public Employee(String name, String email) {
-        super(name);
+    public Employee(String responsibleId, String name, String email) {
+        super(responsibleId, name);
         this.email = email;
     }
 }

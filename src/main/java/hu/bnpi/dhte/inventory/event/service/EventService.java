@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.event.service;
 
-import hu.bnpi.dhte.inventory.event.dtos.EventDetails;
 import hu.bnpi.dhte.inventory.event.dtos.CreateEventCommand;
+import hu.bnpi.dhte.inventory.event.dtos.EventDetails;
 import hu.bnpi.dhte.inventory.event.exceptions.EventNotFoundException;
 import hu.bnpi.dhte.inventory.event.mapper.EventMapper;
 import hu.bnpi.dhte.inventory.event.model.Event;

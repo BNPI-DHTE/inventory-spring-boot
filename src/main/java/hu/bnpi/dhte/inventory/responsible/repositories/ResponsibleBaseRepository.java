@@ -17,4 +17,7 @@ public interface ResponsibleBaseRepository<T extends Responsible> extends JpaRep
 
     @Query("select r from  #{#entityName} as r where :id = r.id")
     Optional<T> findById(long id);
+
+    @Query("select r from #{#entityName} as r where :responsibleId = r.responsibleId")
+    List<T> findAllByResponsibleId(@Param("responsibleId") String responsibleId);
 }

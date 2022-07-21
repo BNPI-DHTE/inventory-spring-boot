@@ -29,10 +29,10 @@ class ResponsibleRepositoryIT {
 
     @BeforeEach
     void setUp() {
-        Employee johnDoe = new Employee("John Doe", "johndoe@mail.com");
-        Department financeDepartment = new Department("Finance Department", johnDoe);
-        Employee janeDoe = new Employee("Jane Doe", "janedoe@mail.com");
-        Department hrDepartment = new Department("HR Department", janeDoe);
+        Employee johnDoe = new Employee("001", "John Doe", "johndoe@mail.com");
+        Department financeDepartment = new Department("002", "Finance Department", johnDoe);
+        Employee janeDoe = new Employee("003", "Jane Doe", "janedoe@mail.com");
+        Department hrDepartment = new Department("004", "HR Department", janeDoe);
         employeeRepository.saveAll(List.of(johnDoe, janeDoe));
         departmentRepository.saveAll(List.of(financeDepartment, hrDepartment));
     }

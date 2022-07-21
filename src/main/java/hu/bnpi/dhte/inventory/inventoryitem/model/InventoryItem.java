@@ -33,9 +33,8 @@ public class InventoryItem {
     @Column(name = "inventory_id", length = 50, nullable = false, unique = true)
     private String inventoryId;
 
-    @NotNull
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "item_type", length = 16, nullable = false)
+    @Column(name = "item_type", length = 16)
     private ItemType itemType;
 
     @NotBlank
@@ -74,6 +73,9 @@ public class InventoryItem {
     @Column(name = "initial_price", scale = 2)
     private double initialPrice;
 
+    @PositiveOrZero
+    private int amount;
+
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "responsible_id")
@@ -86,7 +88,8 @@ public class InventoryItem {
     inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<Event> events;
 
-    public InventoryItem(String inventoryId, ItemType itemType, String name, LocalDate dateOfUse, String description, String serialNumber, String category, String additionalFields, String location, boolean toDisposal, boolean deficit, double initialPrice) {
+    public InventoryItem(String inventoryId, ItemType itemType, String name, LocalDate dateOfUse, String description, String serialNumber, String category,
+                         String additionalFields, String location, boolean toDisposal, boolean deficit, double initialPrice, int amount) {
         this.inventoryId = inventoryId;
         this.itemType = itemType;
         this.name = name;
@@ -99,6 +102,7 @@ public class InventoryItem {
         this.toDisposal = toDisposal;
         this.deficit = deficit;
         this.initialPrice = initialPrice;
+        this.amount = amount;
     }
 
     public void removeKit() {

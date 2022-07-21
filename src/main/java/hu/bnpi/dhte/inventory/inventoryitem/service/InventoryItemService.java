@@ -56,7 +56,8 @@ public class InventoryItemService {
                 command.getLocation(),
                 command.isToDisposal(),
                 command.isDeficit(),
-                command.getInitialPrice());
+                command.getInitialPrice(),
+                command.getAmount());
         inventoryItemRepository.save(item);
         return mapper.toInventoryItemDetails(item);
     }
@@ -92,6 +93,9 @@ public class InventoryItemService {
         if (command.getInitialPrice() != item.getInitialPrice()) {
             item.setInitialPrice(command.getInitialPrice());
         }
+        if (command.getAmount() != item.getAmount()) {
+            item.setAmount(command.getAmount());
+        }
         return mapper.toInventoryItemDetails(item);
     }
 
@@ -101,6 +105,13 @@ public class InventoryItemService {
         isDisposal.ifPresent(item::setToDisposal);
         isDeficit.ifPresent(item::setDeficit);
         return mapper.toInventoryItemDetails(item);
+    }
+
+    public void removeKit(long kitId) {
+        Kit kit = kitRepository.findById(kitId)
+                .orElseThrow(() -> new KitNotFoundException(kitId));
+        kit.getItems().forEach(InventoryItem::removeKit);
+        kitRepository.delete(kit);
     }
 
     private void validateShortageValues(String inventoryId, Optional<Boolean> isDisposal, Optional<Boolean> isDeficit) {
@@ -116,12 +127,5 @@ public class InventoryItemService {
     private InventoryItem getInventoryItemByInventoryId(String inventoryId) {
         return inventoryItemRepository.findByInventoryId(inventoryId)
                 .orElseThrow(() -> new InventoryItemNotFoundException(inventoryId));
-    }
-
-    public void removeKit(long kitId) {
-        Kit kit = kitRepository.findById(kitId)
-                .orElseThrow(() -> new KitNotFoundException(kitId));
-        kit.getItems().forEach(InventoryItem::removeKit);
-        kitRepository.delete(kit);
     }
 }

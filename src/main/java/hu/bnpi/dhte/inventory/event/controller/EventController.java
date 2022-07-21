@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.event.controller;
 
-import hu.bnpi.dhte.inventory.event.dtos.EventDetails;
 import hu.bnpi.dhte.inventory.event.dtos.CreateEventCommand;
+import hu.bnpi.dhte.inventory.event.dtos.EventDetails;
 import hu.bnpi.dhte.inventory.event.service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -34,15 +34,15 @@ class ResponsibleControllerIT {
 
     @BeforeEach
     void setUp() {
-        janeDoe = new Employee("Jane Doe", "janeDoe@mail.com");
-        johnDoe = new Employee("John Doe", "johnDoe@mail.com");
-        Employee jackDoe = new Employee("Jack Doe", "jackDoe@mail.com");
-        Employee jillDoe = new Employee("Jill Doe", "jillDoe@mail.com");
-        Employee joeDoe = new Employee("Joe Doe", "joeDoe@mail.com");
+        janeDoe = new Employee("001", "Jane Doe", "janeDoe@mail.com");
+        johnDoe = new Employee("002","John Doe", "johnDoe@mail.com");
+        Employee jackDoe = new Employee("003", "Jack Doe", "jackDoe@mail.com");
+        Employee jillDoe = new Employee("004","Jill Doe", "jillDoe@mail.com");
+        Employee joeDoe = new Employee("005","Joe Doe", "joeDoe@mail.com");
         repository.saveAll(List.of(janeDoe, johnDoe, jackDoe, jillDoe, joeDoe));
 
-        hrDepartment = new Department("HR Department", janeDoe);
-        Department financeDepartment = new Department("Finance Department", johnDoe);
+        hrDepartment = new Department("006","HR Department", janeDoe);
+        Department financeDepartment = new Department("007", "Finance Department", johnDoe);
         repository.saveAll(List.of(hrDepartment, financeDepartment));
     }
 
@@ -86,7 +86,7 @@ class ResponsibleControllerIT {
     void saveEmployeeTest() {
         client.post()
                 .uri("/api/responsible/employees")
-                .bodyValue(new SaveEmployeeCommand("Jacob Doe", "jacobDoe@mail.com"))
+                .bodyValue(new SaveEmployeeCommand("008", "Jacob Doe", "jacobDoe@mail.com"))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(EmployeeDetails.class)
@@ -97,7 +97,7 @@ class ResponsibleControllerIT {
     void saveDepartmentTest() {
         client.post()
                 .uri("/api/responsible/departments")
-                .bodyValue(new SaveDepartmentCommand("Legal Department", "Jill Doe"))
+                .bodyValue(new SaveDepartmentCommand("008", "Legal Department", "Jill Doe"))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(DepartmentDetails.class)
@@ -108,21 +108,23 @@ class ResponsibleControllerIT {
     void updateEmployeeTest() {
         client.put()
                 .uri("/api/responsible/employees")
-                .bodyValue(new UpdateEmployeeCommand(janeDoe.getId(), "Jane Smith Doe", "janeSmithDoe@mail.com"))
+                .bodyValue(new UpdateEmployeeCommand(janeDoe.getId(), "", "Jane Smith Doe", "janeSmithDoe@mail.com"))
                 .exchange()
                 .expectBody(EmployeeDetails.class)
-                .value(employeeDto -> assertEquals("janeSmithDoe@mail.com", employeeDto.getEmail()));
+                .value(employeeDetails -> assertEquals("janeSmithDoe@mail.com", employeeDetails.getEmail()))
+                .value(employeeDetails -> assertEquals("001", employeeDetails.getResponsibleId()));
     }
 
     @Test
     void updateDepartmentTest() {
         client.put()
                 .uri("/api/responsible/departments")
-                .bodyValue(new UpdateDepartmentCommand(hrDepartment.getId(), "Human Resources Department", "Joe Doe"))
+                .bodyValue(new UpdateDepartmentCommand(hrDepartment.getId(), "", "Human Resources Department", "Joe Doe"))
                 .exchange()
                 .expectBody(DepartmentDetails.class)
                 .value(departmentDto -> assertEquals("joeDoe@mail.com", departmentDto.getLeaderEmail()))
-                .value(departmentDto -> assertEquals("Human Resources Department", departmentDto.getName()));
+                .value(departmentDto -> assertEquals("Human Resources Department", departmentDto.getName()))
+                .value(departmentDto -> assertEquals("006", departmentDto.getResponsibleId()));
     }
 
     @Test

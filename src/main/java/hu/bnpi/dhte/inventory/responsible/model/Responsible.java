@@ -25,18 +25,24 @@ public abstract class Responsible {
     private Long id;
 
     @NotBlank
+    @Column(length = 50, nullable = false, unique = true)
+    private String responsibleId;
+
+    @NotBlank
     @Column(length = 150, nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "responsible")
     private List<InventoryItem> items = new ArrayList<>();
 
-    protected Responsible(String name) {
+    protected Responsible(String responsibleId, String name) {
+        this.responsibleId = responsibleId;
         this.name = name;
     }
 
-    protected Responsible(long id, String name, List<InventoryItem> items) {
+    protected Responsible(long id, String responsibleId, String name, List<InventoryItem> items) {
         this.id = id;
+        this.responsibleId = responsibleId;
         this.name = name;
         this.items = items;
     }

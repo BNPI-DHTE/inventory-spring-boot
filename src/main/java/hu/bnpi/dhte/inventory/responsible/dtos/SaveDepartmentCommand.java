@@ -15,10 +15,14 @@ import javax.validation.constraints.Size;
 public class SaveDepartmentCommand {
 
     @NotBlank
+    @Size(max = 50)
+    private String responsibleId;
+
+    @NotBlank
     @Size(min = 5, max = 150)
     private String name;
 
     @NotBlank
-    @Size(min = 5, max = 150)
-    private String nameOfLeader;
+    @Size(max = 50)
+    private String responsibleIdOfLeader;
 }

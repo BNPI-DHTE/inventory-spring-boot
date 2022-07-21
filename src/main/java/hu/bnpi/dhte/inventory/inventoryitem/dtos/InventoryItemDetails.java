@@ -43,5 +43,7 @@ public class InventoryItemDetails {
 
     private double initialPrice;
 
+    private int amount;
+
     private ResponsibleDetails responsible;
 }

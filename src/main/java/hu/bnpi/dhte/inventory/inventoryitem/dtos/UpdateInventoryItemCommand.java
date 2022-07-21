@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 @Setter
 public class UpdateInventoryItemCommand {
 
+    //TODO Add messages to bean validations!
+
     private String inventoryId;
 
     @NotNull
@@ -45,4 +47,7 @@ public class UpdateInventoryItemCommand {
 
     @PositiveOrZero
     private double initialPrice;
+
+    @PositiveOrZero
+    private int amount;
 }

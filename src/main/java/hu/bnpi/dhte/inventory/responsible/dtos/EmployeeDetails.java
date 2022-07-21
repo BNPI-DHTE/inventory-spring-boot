@@ -13,6 +13,8 @@ public class EmployeeDetails {
 
     private Long id;
 
+    private String responsibleId;
+
     private String name;
 
     private String email;

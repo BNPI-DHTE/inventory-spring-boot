@@ -51,4 +51,7 @@ public class CreateInventoryItemCommand {
 
     @PositiveOrZero(message = "Initial price cannot be negative!")
     private double initialPrice;
+
+    @PositiveOrZero(message = "Amount maust be positive or zero")
+    private int amount;
 }

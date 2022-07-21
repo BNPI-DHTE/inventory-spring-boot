@@ -10,7 +10,7 @@ public class EmployeeNotFoundException extends AbstractThrowableProblem {
         super(URI.create("responsible/employee-not-found"),
                 "Employee not found",
                 Status.NOT_FOUND,
-                String.format("Employee not found with name: %s", name));
+                String.format("Employee not found with name or id: %s", name));
     }
 
     public EmployeeNotFoundException(long id) {

@@ -19,18 +19,17 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "responsible_id")
 public class Department extends Responsible {
 
-    @NotNull
     @OneToOne
     @JoinColumn(name = "leader_id")
     private Employee leader;
 
-    public Department(long id, String name, List<InventoryItem> items, Employee leader) {
-        super(id, name, items);
+    public Department(long id, String responsibleId, String name, List<InventoryItem> items, Employee leader) {
+        super(id, responsibleId, name, items);
         this.leader = leader;
     }
 
-    public Department(String name, Employee leader) {
-        super(name);
+    public Department(String responsibleId, String name, Employee leader) {
+        super(responsibleId, name);
         this.leader = leader;
     }
 }
