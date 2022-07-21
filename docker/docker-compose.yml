@@ -1,9 +1,9 @@
 version: '3.9'
 
 services:
-  inventory-database:
-    image: postgres:14.3-alpine
-    container_name: inventory_db
+  inventory-dev-database:
+    image: postgres:14.4-alpine
+    container_name: inventory_dev_db
     restart: on-failure
     ports:
       - "5432:5432"
@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: postgres
 
   inventory-test-database:
-    image: postgres:14.3-alpine
+    image: postgres:14.4-alpine
     container_name: inventory_test_db
     restart: on-failure
     ports:
@@ -35,9 +35,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-database:5432/inventory
+      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-dev-database:5432/inventory
       SPRING_DATASOURCE_USER: inventory
       SPRING_DATASOURCE_PASSWORD: inventory
     depends_on:
-      - inventory-database
-    entrypoint: ['/opt/bin/wait-for-it.sh', '-t', '120', 'inventory-database:5432', '--', 'java', 'org.springframework.boot.loader.JarLauncher']
+      - inventory-dev-database
+    entrypoint: ['/opt/bin/wait-for-it.sh', '-t', '120', 'inventory-dev-database:5432', '--', 'java', 'org.springframework.boot.loader.JarLauncher']

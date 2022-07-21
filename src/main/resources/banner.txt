@@ -1,0 +1,9 @@
+${AnsiColor.BLUE}  _____    _    _   _______   ______  ${AnsiColor.BLUE} ${AnsiColor.GREEN}  _               _   _        __         ${AnsiColor.GREEN}
+${AnsiColor.BLUE} |  __ \  | |  | | |__   __| |  ____| ${AnsiColor.BLUE} ${AnsiColor.GREEN} | |             | | | |      /_/         ${AnsiColor.GREEN}
+${AnsiColor.BLUE} | |  | | | |__| |    | |    | |__    ${AnsiColor.BLUE} ${AnsiColor.GREEN} | |        ___  | | | |_    __ _   _ __  ${AnsiColor.GREEN}
+${AnsiColor.BLUE} | |  | | |  __  |    | |    |  __|   ${AnsiColor.BLUE} ${AnsiColor.GREEN} | |       / _ \ | | | __|  / _` | | '__| ${AnsiColor.GREEN}
+${AnsiColor.BLUE} | |__| | | |  | |    | |    | |____  ${AnsiColor.BLUE} ${AnsiColor.GREEN} | |____  |  __/ | | | |_  | (_| | | |    ${AnsiColor.GREEN}
+${AnsiColor.BLUE} |_____/  |_|  |_|    |_|    |______| ${AnsiColor.BLUE} ${AnsiColor.GREEN} |______|  \___| |_|  \__|  \__,_| |_|    ${AnsiColor.GREEN}
+${application.title} v.${application.version}
+Kapcsolat: ferenca@bnpi.hu
+${AnsiColor.BLUE}:: Powered by Spring Boot${spring-boot.formatted-version} :: ${AnsiColor.BLUE}
