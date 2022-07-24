@@ -79,7 +79,7 @@ public class InventoryItem {
 
     @NotNull
     @ManyToOne(optional = false)
-    @JoinColumn(name = "responsible_id")
+    @JoinColumn(name = "resp_id")
     private Responsible responsible;
 
     @NotEmpty

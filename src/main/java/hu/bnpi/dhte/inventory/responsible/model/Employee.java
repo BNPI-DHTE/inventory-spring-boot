@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @Entity(name = "employee")
 @Table(name = "employees")
-@PrimaryKeyJoinColumn(name = "responsible_id")
+@PrimaryKeyJoinColumn(name = "resp_id")
 public class Employee extends Responsible {
 
     @Email

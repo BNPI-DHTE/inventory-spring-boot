@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Entity(name = "department")
 @Table(name = "departments")
-@PrimaryKeyJoinColumn(name = "responsible_id")
+@PrimaryKeyJoinColumn(name = "resp_id")
 public class Department extends Responsible {
 
     @OneToOne

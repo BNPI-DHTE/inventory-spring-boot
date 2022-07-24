@@ -25,7 +25,7 @@ public abstract class Responsible {
     private Long id;
 
     @NotBlank
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(name = "responsible_id", length = 50, nullable = false, unique = true)
     private String responsibleId;
 
     @NotBlank
