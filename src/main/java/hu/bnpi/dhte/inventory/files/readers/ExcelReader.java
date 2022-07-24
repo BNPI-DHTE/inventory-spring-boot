@@ -25,7 +25,6 @@ public class ExcelReader implements FileReader {
      * Serial Number, Amount, Notes
      */
 
-    //TODO Use a custom command class instead of Map!
     @Override
     public List<TableCommand> readTable(MultipartFile file) {
         List<TableCommand> items = new ArrayList<>();
