@@ -22,7 +22,6 @@ public class CreateEventCommand {
     @PastOrPresent
     private LocalDate date;
 
-    @NotBlank(message = "Note's serial number cannot be null!")
     @Size(max = 50, message = "Note's serial number cannot be longer than 50 characters!")
     private String noteNumber;
 
