@@ -14,6 +14,7 @@ import hu.bnpi.dhte.inventory.responsible.model.Employee;
 import hu.bnpi.dhte.inventory.responsible.model.Responsible;
 import hu.bnpi.dhte.inventory.responsible.repositories.ResponsibleRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +26,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-@Transactional
+@Slf4j
 public class FileService {
 
     private ExcelReader excelReader;
@@ -54,6 +55,9 @@ public class FileService {
         for (TableCommand command : items) {
             Responsible responsible = getResponsible(command);
             InventoryItem item = getInventoryItem(responsible, command);
+            responsibleRepository.save(responsible);
+            log.info("Responsible saved: " + responsible.getResponsibleId() + ", " + responsible.getName());
+            inventoryItemRepository.save(item);
             itemDetails.add(inventoryItemMapper.toInventoryItemDetails(item));
         }
         return itemDetails;
@@ -75,7 +79,7 @@ public class FileService {
                     "[\n{\n" + "\"inventoryItemName2\":\"" + command.getInventoryItemName2() +
                             "\"\n\"inventoryItemName3\":\"" + command.getInventoryItemName3() +
                             "\"\n}\n]",
-                    Integer.parseInt(command.getAmount()));
+                    (int) Math.round(Double.parseDouble(command.getAmount())));
             responsible.addInventoryItem(item);
             inventoryItemRepository.save(item);
         }
@@ -87,8 +91,10 @@ public class FileService {
         List<Responsible> listOfPossibleResponsible = new ArrayList<>();
         listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleId(command.getResponsiblePersonCode()));
         listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleId(command.getWorkingPlace()));
+        log.info("Size of possible responsible is: " + listOfPossibleResponsible.size());
         if (listOfPossibleResponsible.isEmpty()) {
             responsible = createResponsible(command);
+            log.info("Responsible created with name: " + responsible.getName());
         } else if (listOfPossibleResponsible.size() > 1) {
             throw new ResponsibleNotUniqueException(command.getResponsiblePersonCode(), command.getWorkingPlace());
         } else {
@@ -99,7 +105,7 @@ public class FileService {
     }
 
     private void validateResponsible(TableCommand command, Responsible responsible) {
-        if (!responsible.getName().equals(command.getResponsiblePersonName()) || !responsible.getName().equals(command.getResponsibleDepartmentName())) {
+        if (!responsible.getName().equals(command.getResponsiblePersonName()) && !responsible.getName().equals(command.getResponsibleDepartmentName())) {
             throw new CorruptResponsibleException(responsible.getResponsibleId());
         }
     }

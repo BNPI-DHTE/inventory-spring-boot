@@ -51,7 +51,7 @@ public class InventoryItem {
     @Column(name = "serial_number", length = 100)
     private String serialNumber;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String category;
 
     //TODO We'll need ManyToMany relation!
