@@ -13,4 +13,14 @@ CREATE DATABASE inventory
     LC_CTYPE = 'hu_HU.UTF-8'
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
+
+CREATE USER keycloak
+WITH PASSWORD 'keycloak';
+
+CREATE DATABASE keycloak
+    WITH OWNER = keycloak
+    TEMPLATE = 'template0'
+    ENCODING = 'UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 EOSQL

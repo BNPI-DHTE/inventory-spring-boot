@@ -33,3 +33,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Project specific ###
+### Docker volumes ###
+docker/db/
+docker/test-db/
