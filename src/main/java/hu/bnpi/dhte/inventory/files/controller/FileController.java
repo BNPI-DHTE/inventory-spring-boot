@@ -1,7 +1,7 @@
 package hu.bnpi.dhte.inventory.files.controller;
 
 import hu.bnpi.dhte.inventory.files.service.FileService;
-import hu.bnpi.dhte.inventory.inventoryitem.dtos.InventoryItemDetails;
+import hu.bnpi.dhte.inventory.inventoryitem.dtos.InventoryItemShortDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ public class FileController {
     private FileService service;
 
     @PostMapping(value = "/excel", consumes = {MULTIPART_FORM_DATA_VALUE})
-    public List<InventoryItemDetails> readExcel(@RequestParam(value = "file") MultipartFile file) {
+    public List<InventoryItemShortDetails> readExcel(@RequestParam(value = "file") MultipartFile file) {
         return service.readExcel(file);
     }
 }

@@ -128,4 +128,16 @@ public class InventoryItemService {
         return inventoryItemRepository.findByInventoryId(inventoryId)
                 .orElseThrow(() -> new InventoryItemNotFoundException(inventoryId));
     }
+
+    public List<InventoryItemDetails> findAllByResponsibleId(String responsibleId) {
+        return inventoryItemRepository.findAllByResponsibleResponsibleId(responsibleId).stream()
+                .map(item -> mapper.toInventoryItemDetails(item))
+                .toList();
+    }
+
+    public List<InventoryItemDetails> findAllByResponsibleName(String nameSubstring) {
+        return inventoryItemRepository.findAllByResponsibleName(nameSubstring).stream()
+                .map(item -> mapper.toInventoryItemDetails(item))
+                .toList();
+    }
 }

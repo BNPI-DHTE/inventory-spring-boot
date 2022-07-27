@@ -27,6 +27,16 @@ public class InventoryItemController {
         return service.findByInventoryId(itemId);
     }
 
+    @GetMapping(value = "/responsible/{responsibleId}")
+    public List<InventoryItemDetails> findAllByResponsibleId(@PathVariable String responsibleId) {
+        return service.findAllByResponsibleId(responsibleId);
+    }
+
+    @GetMapping(value = "/responsible")
+    public List<InventoryItemDetails> findAllByResponsibleName(@RequestParam(value = "name") String nameSubstring) {
+        return service.findAllByResponsibleName(nameSubstring);
+    }
+
     @GetMapping(value = "/kits")
     public List<KitDetails> findAllKits() {
         return service.findAllKits();

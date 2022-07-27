@@ -1,4 +1,4 @@
-package hu.bnpi.dhte.inventory.responsible.dtos;
+package hu.bnpi.dhte.inventory.inventoryitem.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ResponsibleDetails {
+public class InventoryItemShortDetails {
 
-    private Long id;
-
-    private String responsibleId;
+    private String inventoryId;
 
     private String name;
 
+    private int amount;
+
+    private String responsibleName;
 }

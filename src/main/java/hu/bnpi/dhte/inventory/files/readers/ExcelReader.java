@@ -50,7 +50,7 @@ public class ExcelReader implements FileReader {
                         } else {
                             switch (cellNumber) {
                                 case 0,1,2,3,4,5,7,8,9,11,12,14 -> cellValues.add(cell.getStringCellValue());
-                                case 6,13 -> cellValues.add(Double.toString(cell.getNumericCellValue()));
+                                case 6,13 -> cellValues.add(Long.toString(Math.round(cell.getNumericCellValue())));
                                 case 10 -> cellValues.add(cell.getLocalDateTimeCellValue().toLocalDate().toString());
                                 default -> cellValues.add("");
                             }

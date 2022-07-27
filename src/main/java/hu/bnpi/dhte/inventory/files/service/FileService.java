@@ -2,7 +2,9 @@ package hu.bnpi.dhte.inventory.files.service;
 
 import hu.bnpi.dhte.inventory.files.dtos.TableCommand;
 import hu.bnpi.dhte.inventory.files.readers.ExcelReader;
-import hu.bnpi.dhte.inventory.inventoryitem.dtos.InventoryItemDetails;
+import hu.bnpi.dhte.inventory.inventoryitem.dtos.InventoryItemShortDetails;
+import hu.bnpi.dhte.inventory.inventoryitem.exceptions.InvalidAmountException;
+import hu.bnpi.dhte.inventory.inventoryitem.exceptions.InvalidResponsibleException;
 import hu.bnpi.dhte.inventory.inventoryitem.mapper.InventoryItemMapper;
 import hu.bnpi.dhte.inventory.inventoryitem.model.InventoryItem;
 import hu.bnpi.dhte.inventory.inventoryitem.repositories.InventoryItemRepository;
@@ -48,16 +50,16 @@ public class FileService {
     // Possibly we can send back a json or another file, as the original one, but extended with a message, what happened with the
     // responsible and with the item.
 
-    public List<InventoryItemDetails> readExcel(MultipartFile file) {
-        List<InventoryItemDetails> itemDetails = new ArrayList<>();
+    public List<InventoryItemShortDetails> readExcel(MultipartFile file) {
+        List<InventoryItemShortDetails> itemDetails = new ArrayList<>();
         List<TableCommand> items = excelReader.readTable(file);
         for (TableCommand command : items) {
             Responsible responsible = getResponsible(command);
             InventoryItem item = getInventoryItem(responsible, command);
             responsibleRepository.save(responsible);
-            log.info("Responsible saved: " + responsible.getResponsibleId() + ", " + responsible.getName());
+            log.debug("Responsible saved: " + responsible.getResponsibleId() + ", " + responsible.getName());
             inventoryItemRepository.save(item);
-            itemDetails.add(inventoryItemMapper.toInventoryItemDetails(item));
+            itemDetails.add(inventoryItemMapper.toInventoryItemShortDetails(item));
         }
         return itemDetails;
     }
@@ -66,22 +68,26 @@ public class FileService {
         InventoryItem item;
         Optional<InventoryItem> optionalItem = inventoryItemRepository.findByInventoryId(command.getInventoryItemID());
         if (optionalItem.isPresent()) {
-            //TODO: validateInventoryItem(command, item.get()); How to validate, as the name will be replaced in some cases. Check amount!
-            // Check if responsible is the same as in the database!
             item = optionalItem.get();
-        } else {
-            item = new InventoryItem(command.getInventoryItemID(),
-                    command.getInventoryItemName1(),
-                    LocalDate.parse(command.getDateOfUse()),
-                    command.getInventoryItemDescription(),
-                    command.getSerialNumber(),
-                    "[\n{\n" + "\"inventoryItemName2\":\"" + command.getInventoryItemName2() +
-                            "\"\n\"inventoryItemName3\":\"" + command.getInventoryItemName3() +
-                            "\"\n}\n]",
-                    (int) Math.round(Double.parseDouble(command.getAmount())));
-            responsible.addInventoryItem(item);
-            inventoryItemRepository.save(item);
+            if (!item.getResponsible().getResponsibleId().equals(responsible.getResponsibleId())) {
+                throw new InvalidResponsibleException(item.getInventoryId());
+            }
+            if (item.getAmount() != Double.parseDouble(command.getAmount())) {
+                throw new InvalidAmountException(item.getInventoryId());
+            }
+            return item;
         }
+        item = new InventoryItem(command.getInventoryItemID(),
+                command.getInventoryItemName1(),
+                LocalDate.parse(command.getDateOfUse()),
+                command.getInventoryItemDescription(),
+                command.getSerialNumber(),
+                "[\n{\n" + "\"inventoryItemName2\":\"" + command.getInventoryItemName2() +
+                        "\"\n\"inventoryItemName3\":\"" + command.getInventoryItemName3() +
+                        "\"\n}\n]",
+                (int) Math.round(Double.parseDouble(command.getAmount())));
+        responsible.addInventoryItem(item);
+        inventoryItemRepository.save(item);
         return item;
     }
 
@@ -90,7 +96,7 @@ public class FileService {
         List<Responsible> listOfPossibleResponsible = new ArrayList<>();
         listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleId(command.getResponsiblePersonCode()));
         listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleId(command.getWorkingPlace()));
-        log.info("Size of possible responsible is: " + listOfPossibleResponsible.size());
+        log.debug("Size of possible responsible is: " + listOfPossibleResponsible.size());
         if (listOfPossibleResponsible.isEmpty()) {
             responsible = createResponsible(command);
             log.info("Responsible created with name: " + responsible.getName());
