@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "api/responsible")
+@RequestMapping(value = "/api/responsible")
 public class ResponsibleController {
 
     private ResponsibleService service;

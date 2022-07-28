@@ -15,7 +15,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/api/v1/files")
+@RequestMapping(value = "/api/files")
 public class FileController {
 
     private FileService service;
