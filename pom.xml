@@ -21,31 +21,28 @@
         <mapstruct.version>1.5.2.Final</mapstruct.version>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.keycloak.bom</groupId>
-                <artifactId>keycloak-adapter-bom</artifactId>
-                <version>18.0.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            <dependency>-->
+<!--                <groupId>org.keycloak.bom</groupId>-->
+<!--                <artifactId>keycloak-adapter-bom</artifactId>-->
+<!--                <version>18.0.0</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--    <dependency>-->
+<!--                <groupId>com.vaadin</groupId>-->
+<!--                <artifactId>vaadin-bom</artifactId>-->
+<!--                <version>${vaadin.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-        </dependency>
+<!-- Spring base related dependencies >-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -54,19 +51,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.keycloak</groupId>-->
-<!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.vaadin</groupId>-->
-<!--            <artifactId>vaadin-spring-boot-starter</artifactId>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -74,19 +58,90 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zalando</groupId>
+            <artifactId>problem-spring-web-starter</artifactId>
+            <version>0.27.0</version>
+        </dependency>
+
+<!-- JPA related dependencies >-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+<!-- Security related dependencies >-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.19.2</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.keycloak</groupId>-->
+<!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+<!-- File management related dependencies >-->
+
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.2</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.tika</groupId>-->
+<!--            <artifactId>tika-parsers</artifactId>-->
+<!--            <version>2.4.1</version>-->
+<!--            <type>pom</type>-->
+<!--        </dependency>-->
+
+<!-- Frontend related dependencies >-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.vaadin</groupId>-->
+<!--            <artifactId>vaadin-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+<!-- Development tools >-->
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+<!-- Documentation >-->
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.9</version>
+        </dependency>
+
+<!-- Test related dependencies >-->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -98,39 +153,7 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.zalando</groupId>
-            <artifactId>problem-spring-web-starter</artifactId>
-            <version>0.27.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-parsers</artifactId>
-            <version>2.4.1</version>
-            <type>pom</type>
-        </dependency>
     </dependencies>
-<!--    <dependencyManagement>-->
-<!--        <dependencies>-->
-<!--            <dependency>-->
-<!--                <groupId>com.vaadin</groupId>-->
-<!--                <artifactId>vaadin-bom</artifactId>-->
-<!--                <version>${vaadin.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
-<!--        </dependencies>-->
-<!--    </dependencyManagement>-->
 
     <build>
         <plugins>
