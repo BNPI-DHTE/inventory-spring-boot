@@ -33,11 +33,13 @@ public class UserService {
 
     public InventoryAppUserDetails saveUser(InventoryAppUser user) {
         userRepository.save(user);
+        log.info("Saving new user to the database: {}", user.getUsername());
         return userMapper.toInventoryAppUserDetails(user);
     }
 
     public InventoryAppRoleDetails saveRole(InventoryAppRole role) {
         roleRepository.save(role);
+        log.info("Saving new role to the database: {}", role.getName());
         return roleMapper.toInventoryAppRoleDetails(role);
     }
 
@@ -47,16 +49,19 @@ public class UserService {
         InventoryAppRole role = roleRepository.findByName(roleName)
                 .orElseThrow(() -> new RoleNotFoundException(roleName));
         user.addRole(role);
+        log.info("Adding new role, {} to user {}", role.getName(), user.getUsername());
         return userMapper.toInventoryAppUserDetails(user);
     }
 
     public InventoryAppUserDetails getUser(String username) {
+        log.info("Fetching user {}", username);
         InventoryAppUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
         return userMapper.toInventoryAppUserDetails(user);
     }
 
     public List<InventoryAppUserDetails> getUsers() {
+        log.info("Fetching all users");
         return userRepository.findAll().stream()
                 .map(user -> userMapper.toInventoryAppUserDetails(user))
                 .toList();
