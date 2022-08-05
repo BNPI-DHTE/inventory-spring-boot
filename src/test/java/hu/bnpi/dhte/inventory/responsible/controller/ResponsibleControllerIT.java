@@ -28,14 +28,12 @@ class ResponsibleControllerIT {
 
     private Employee janeDoe;
 
-    private Employee johnDoe;
-
     private Department hrDepartment;
 
     @BeforeEach
     void setUp() {
         janeDoe = new Employee("001", "Jane Doe", "janeDoe@mail.com");
-        johnDoe = new Employee("002","John Doe", "johnDoe@mail.com");
+        Employee johnDoe = new Employee("002", "John Doe", "johnDoe@mail.com");
         Employee jackDoe = new Employee("003", "Jack Doe", "jackDoe@mail.com");
         Employee jillDoe = new Employee("004","Jill Doe", "jillDoe@mail.com");
         Employee joeDoe = new Employee("005","Joe Doe", "joeDoe@mail.com");
@@ -97,7 +95,7 @@ class ResponsibleControllerIT {
     void saveDepartmentTest() {
         client.post()
                 .uri("/api/responsible/departments")
-                .bodyValue(new SaveDepartmentCommand("008", "Legal Department", "Jill Doe"))
+                .bodyValue(new SaveDepartmentCommand("008", "Legal Department", "004"))
                 .exchange()
                 .expectStatus().isCreated()
                 .expectBody(DepartmentDetails.class)
@@ -119,7 +117,7 @@ class ResponsibleControllerIT {
     void updateDepartmentTest() {
         client.put()
                 .uri("/api/responsible/departments")
-                .bodyValue(new UpdateDepartmentCommand(hrDepartment.getId(), "", "Human Resources Department", "Joe Doe"))
+                .bodyValue(new UpdateDepartmentCommand(hrDepartment.getId(), "Human Resources Department", "005"))
                 .exchange()
                 .expectBody(DepartmentDetails.class)
                 .value(departmentDto -> assertEquals("joeDoe@mail.com", departmentDto.getLeaderEmail()))

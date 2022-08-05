@@ -81,8 +81,11 @@ public class ResponsibleService {
         if (command.getName() != null && !command.getName().isBlank()) {
             department.setName(command.getName());
         }
-        if (command.getNameOfLeader() != null && !command.getNameOfLeader().isBlank()) {
-            List<Employee> leader = getDepartmentLeader(command.getNameOfLeader());
+        if (command.getResponsibleIdOfLeader() != null && !command.getResponsibleIdOfLeader().isBlank()) {
+            List<Employee> leader = getDepartmentLeader(command.getResponsibleIdOfLeader());
+            if (leader.size() != 1) {
+                throw new EmployeeNotFoundException(command.getResponsibleIdOfLeader());
+            }
             department.setLeader(leader.get(0));
         }
         return mapper.toDepartmentDetails(department);
