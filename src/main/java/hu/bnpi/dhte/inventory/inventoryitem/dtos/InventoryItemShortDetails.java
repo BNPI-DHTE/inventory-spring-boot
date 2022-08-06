@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class InventoryItemShortDetails {
 
-    private String inventoryId;
+    private String inventoryNumber;
 
     private String name;
 

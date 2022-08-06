@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 public class CreateEventCommand {
 
-    //TODO Custom validations on responsible, inventoryIds;
+    //TODO Custom validations on responsible, inventoryNumbers;
 
     @NotNull(message = "Date cannot be null!")
     @PastOrPresent
@@ -29,7 +29,7 @@ public class CreateEventCommand {
     private String noteNumber;
 
     @NotEmpty(message = "List of inventory items cannot be empty!")
-    private List<String> inventoryIds;
+    private List<String> inventoryNumbers;
 
     @NotNull(message = "Event type cannot be null!")
     private EventType eventType;

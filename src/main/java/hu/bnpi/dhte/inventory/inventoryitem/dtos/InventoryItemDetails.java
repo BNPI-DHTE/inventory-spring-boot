@@ -17,7 +17,7 @@ public class InventoryItemDetails {
 
     private Long id;
 
-    private String inventoryId;
+    private String inventoryNumber;
 
     private ItemType itemType;
 

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface InventoryItemRepository extends JpaRepository<InventoryItem, Long> {
 
-    Optional<InventoryItem> findByInventoryId(String inventoryId);
+    Optional<InventoryItem> findByInventoryNumber(String inventoryNumber);
 
     List<InventoryItem> findAllByResponsibleResponsibleNumber(String responsibleNumber);
 

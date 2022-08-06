@@ -6,10 +6,10 @@ import org.zalando.problem.Status;
 import java.net.URI;
 
 public class InventoryItemNotFoundException extends AbstractThrowableProblem {
-    public InventoryItemNotFoundException(String inventoryId) {
+    public InventoryItemNotFoundException(String inventoryNumber) {
         super(URI.create("inventoryitem/item-not-found"),
                 "Inventory item not found",
                 Status.NOT_FOUND,
-                String.format("Item not found with inventory id: %s", inventoryId));
+                String.format("Item not found with inventory id: %s", inventoryNumber));
     }
 }

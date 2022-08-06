@@ -30,8 +30,8 @@ public class InventoryItem {
     private Long id;
 
     @NotBlank
-    @Column(name = "inventory_id", length = 50, nullable = false, unique = true)
-    private String inventoryId;
+    @Column(name = "inventory_number", length = 50, nullable = false, unique = true)
+    private String inventoryNumber;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "item_type", length = 16)
@@ -89,9 +89,9 @@ public class InventoryItem {
     inverseJoinColumns = @JoinColumn(name = "event_id"))
     private List<Event> events;
 
-    public InventoryItem(String inventoryId, ItemType itemType, String name, LocalDate dateOfUse, String description, String serialNumber, String category,
+    public InventoryItem(String inventoryNumber, ItemType itemType, String name, LocalDate dateOfUse, String description, String serialNumber, String category,
                          String additionalFields, String location, boolean toDisposal, boolean deficit, double initialPrice, int amount) {
-        this.inventoryId = inventoryId;
+        this.inventoryNumber = inventoryNumber;
         this.itemType = itemType;
         this.name = name;
         this.dateOfUse = dateOfUse;
@@ -106,8 +106,8 @@ public class InventoryItem {
         this.amount = amount;
     }
 
-    public InventoryItem(String inventoryId, String name, LocalDate dateOfUse, String description, String serialNumber, String additionalFields, int amount) {
-        this.inventoryId = inventoryId;
+    public InventoryItem(String inventoryNumber, String name, LocalDate dateOfUse, String description, String serialNumber, String additionalFields, int amount) {
+        this.inventoryNumber = inventoryNumber;
         this.name = name;
         this.dateOfUse = dateOfUse;
         this.description = description;
