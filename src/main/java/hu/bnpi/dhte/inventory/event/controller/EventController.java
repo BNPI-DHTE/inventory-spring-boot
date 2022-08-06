@@ -23,9 +23,9 @@ public class EventController {
         return service.findEventsByDateBetween(startDate, endDate);
     }
 
-    @GetMapping("/inventoryId")
-    public List<EventDetails> findEventsByInventoryId(@RequestParam String inventoryId) {
-        return service.findEventsByInventorId(inventoryId);
+    @GetMapping("/inventoryNumber")
+    public List<EventDetails> findEventsByInventoryNumber(@RequestParam String inventoryNumber) {
+        return service.findEventsByInventorNumber(inventoryNumber);
     }
 
     @GetMapping("/noteNumber")

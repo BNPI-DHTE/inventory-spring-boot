@@ -33,8 +33,8 @@ public class EventService {
 
     private EventMapper mapper;
 
-    public List<EventDetails> findEventsByInventorId(String inventoryId) {
-        return eventRepository.findAllByInventoryId(inventoryId).stream()
+    public List<EventDetails> findEventsByInventorNumber(String inventoryNumber) {
+        return eventRepository.findAllByInventoryNumber(inventoryNumber).stream()
                 .map(event -> mapper.toEventDetails(event))
                 .toList();
     }
@@ -53,8 +53,8 @@ public class EventService {
     }
 
     public EventDetails saveEvent(CreateEventCommand command) {
-        List<InventoryItem> items = command.getInventoryIds().stream()
-                .map(id -> itemRepository.findByInventoryId(id)
+        List<InventoryItem> items = command.getInventoryNumbers().stream()
+                .map(id -> itemRepository.findByInventoryNumber(id)
                         .orElseThrow(() -> new InventoryItemNotFoundException(id)))
                 .toList();
         Responsible oldResponsible;

@@ -33,9 +33,9 @@ public class InventoryItemService {
                 .toList();
     }
 
-    public InventoryItemDetails findByInventoryId(String inventoryId) {
-        return mapper.toInventoryItemDetails(inventoryItemRepository.findByInventoryId(inventoryId)
-                .orElseThrow(() -> new InventoryItemNotFoundException(inventoryId)));
+    public InventoryItemDetails findByInventoryNumber(String inventoryNumber) {
+        return mapper.toInventoryItemDetails(inventoryItemRepository.findByInventoryNumber(inventoryNumber)
+                .orElseThrow(() -> new InventoryItemNotFoundException(inventoryNumber)));
     }
 
     public List<KitDetails> findAllKits() {
@@ -45,7 +45,7 @@ public class InventoryItemService {
     }
 
     public InventoryItemDetails saveInventoryItem(CreateInventoryItemCommand command) {
-        InventoryItem item = new InventoryItem(command.getInventoryId(),
+        InventoryItem item = new InventoryItem(command.getInventoryNumber(),
                 command.getItemType(),
                 command.getName(),
                 command.getDateOfUse(),
@@ -70,8 +70,8 @@ public class InventoryItemService {
 
     //TODO Refactor or simplify this huge method!
 
-    public InventoryItemDetails updateInventoryItem(String inventoryId, UpdateInventoryItemCommand command) {
-        InventoryItem item = getInventoryItemByInventoryId(inventoryId);
+    public InventoryItemDetails updateInventoryItem(String inventoryNumber, UpdateInventoryItemCommand command) {
+        InventoryItem item = getInventoryItemByInventoryNumber(inventoryNumber);
         if (command.getName() != null && !command.getName().isBlank() && !command.getName().equals(item.getName())) {
             item.setName(command.getName());
         }
@@ -99,9 +99,9 @@ public class InventoryItemService {
         return mapper.toInventoryItemDetails(item);
     }
 
-    public InventoryItemDetails setShortage(String inventoryId, Optional<Boolean> isDisposal, Optional<Boolean> isDeficit) {
-        validateShortageValues(inventoryId, isDisposal, isDeficit);
-        InventoryItem item = getInventoryItemByInventoryId(inventoryId);
+    public InventoryItemDetails setShortage(String inventoryNumber, Optional<Boolean> isDisposal, Optional<Boolean> isDeficit) {
+        validateShortageValues(inventoryNumber, isDisposal, isDeficit);
+        InventoryItem item = getInventoryItemByInventoryNumber(inventoryNumber);
         isDisposal.ifPresent(item::setToDisposal);
         isDeficit.ifPresent(item::setDeficit);
         return mapper.toInventoryItemDetails(item);
@@ -114,19 +114,19 @@ public class InventoryItemService {
         kitRepository.delete(kit);
     }
 
-    private void validateShortageValues(String inventoryId, Optional<Boolean> isDisposal, Optional<Boolean> isDeficit) {
+    private void validateShortageValues(String inventoryNumber, Optional<Boolean> isDisposal, Optional<Boolean> isDeficit) {
         if (isDisposal.isPresent() && isDeficit.isPresent() || isDisposal.isEmpty() && isDeficit.isEmpty()) {
             throw new InvalidShortageValuesException();
         }
-        InventoryItem item = getInventoryItemByInventoryId(inventoryId);
+        InventoryItem item = getInventoryItemByInventoryNumber(inventoryNumber);
         if (isDisposal.isPresent() && isDisposal.get().equals(item.isDeficit()) || isDeficit.isPresent() && isDeficit.get().equals(item.isToDisposal())) {
             throw new InvalidShortageValuesException();
         }
     }
 
-    private InventoryItem getInventoryItemByInventoryId(String inventoryId) {
-        return inventoryItemRepository.findByInventoryId(inventoryId)
-                .orElseThrow(() -> new InventoryItemNotFoundException(inventoryId));
+    private InventoryItem getInventoryItemByInventoryNumber(String inventoryNumber) {
+        return inventoryItemRepository.findByInventoryNumber(inventoryNumber)
+                .orElseThrow(() -> new InventoryItemNotFoundException(inventoryNumber));
     }
 
     public List<InventoryItemDetails> findAllByResponsibleNumber(String responsibleNumber) {

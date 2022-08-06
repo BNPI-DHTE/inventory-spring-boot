@@ -19,7 +19,7 @@ public class CreateInventoryItemCommand {
 
     @NotBlank(message = "Inventory id cannot be blank!")
     @Size(max = 50, message = "Inventory id cannot be longer than 50 characters!")
-    private String inventoryId;
+    private String inventoryNumber;
 
     @NotNull(message = "Item type cannot be null!")
     private ItemType itemType;

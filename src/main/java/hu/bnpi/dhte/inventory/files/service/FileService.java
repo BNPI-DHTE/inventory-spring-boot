@@ -40,7 +40,7 @@ public class FileService {
 
     private InventoryItemMapper inventoryItemMapper;
 
-    //TODO New conception: check, if inventoryId (responsible or item) is in the database.
+    //TODO New conception: check, if inventoryNumber (responsible or item) is in the database.
     //  If it's true, check, if it is the same item (by name (responsible), or by serial number, dateOfUse, additional fields(item))
     //      If it's true, check if amount was changed in item.
     //          If it's true, we need to return message with the item details.
@@ -66,14 +66,14 @@ public class FileService {
 
     private InventoryItem getInventoryItem(Responsible responsible, TableCommand command) {
         InventoryItem item;
-        Optional<InventoryItem> optionalItem = inventoryItemRepository.findByInventoryId(command.getInventoryItemID());
+        Optional<InventoryItem> optionalItem = inventoryItemRepository.findByInventoryNumber(command.getInventoryItemID());
         if (optionalItem.isPresent()) {
             item = optionalItem.get();
             if (!item.getResponsible().getResponsibleNumber().equals(responsible.getResponsibleNumber())) {
-                throw new InvalidResponsibleException(item.getInventoryId());
+                throw new InvalidResponsibleException(item.getInventoryNumber());
             }
             if (item.getAmount() != Double.parseDouble(command.getAmount())) {
-                throw new InvalidAmountException(item.getInventoryId());
+                throw new InvalidAmountException(item.getInventoryNumber());
             }
             return item;
         }

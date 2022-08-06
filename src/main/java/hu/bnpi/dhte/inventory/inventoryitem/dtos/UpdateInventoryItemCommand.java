@@ -21,7 +21,7 @@ public class UpdateInventoryItemCommand {
 
     //TODO Add messages to bean validations!
 
-    private String inventoryId;
+    private String inventoryNumber;
 
     @NotNull
     @Enumerated(value = EnumType.STRING)

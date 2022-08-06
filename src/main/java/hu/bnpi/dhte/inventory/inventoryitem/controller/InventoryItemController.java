@@ -22,9 +22,9 @@ public class InventoryItemController {
         return service.findAllItems();
     }
 
-    @GetMapping(value = "/{itemId}")
-    public InventoryItemDetails findByInventoryId(@PathVariable String itemId) {
-        return service.findByInventoryId(itemId);
+    @GetMapping(value = "/{inventoryNumber}")
+    public InventoryItemDetails findByInventoryNumber(@PathVariable String inventoryNumber) {
+        return service.findByInventoryNumber(inventoryNumber);
     }
 
     @GetMapping(value = "/responsible/{responsibleNumber}")
@@ -54,14 +54,14 @@ public class InventoryItemController {
         return service.saveKit(command);
     }
 
-    @PutMapping(value = "/{inventoryId}")
-    public InventoryItemDetails updateInventoryItem(@PathVariable("inventoryId") String inventoryId, @Valid @RequestBody UpdateInventoryItemCommand command) {
-        return service.updateInventoryItem(inventoryId, command);
+    @PutMapping(value = "/{inventoryNumber}")
+    public InventoryItemDetails updateInventoryItem(@PathVariable("inventoryNumber") String inventoryNumber, @Valid @RequestBody UpdateInventoryItemCommand command) {
+        return service.updateInventoryItem(inventoryNumber, command);
     }
 
-    @PutMapping(value = "/{inventoryId}/shortage")
-    public InventoryItemDetails setShortage(@PathVariable("inventoryId") String inventoryId, @RequestParam Optional<Boolean> isDisposal, @RequestParam Optional<Boolean> isDeficit) {
-        return service.setShortage(inventoryId, isDisposal, isDeficit);
+    @PutMapping(value = "/{inventoryNumber}/shortage")
+    public InventoryItemDetails setShortage(@PathVariable("inventoryNumber") String inventoryNumber, @RequestParam Optional<Boolean> isDisposal, @RequestParam Optional<Boolean> isDeficit) {
+        return service.setShortage(inventoryNumber, isDisposal, isDeficit);
     }
 
     @DeleteMapping(value = "/kits/{kitId}")

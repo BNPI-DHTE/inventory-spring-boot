@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query("select distinct e from Event e left join fetch e.items as i where :inventoryId = i.inventoryId")
-    List<Event> findAllByInventoryId(@Param("inventoryId") String inventoryId);
+    @Query("select distinct e from Event e left join fetch e.items as i where :inventoryNumber = i.inventoryNumber")
+    List<Event> findAllByInventoryNumber(@Param("inventoryNumber") String inventoryNumber);
 
     Optional<Event> findByNoteNumber (String noteNumber);
 
