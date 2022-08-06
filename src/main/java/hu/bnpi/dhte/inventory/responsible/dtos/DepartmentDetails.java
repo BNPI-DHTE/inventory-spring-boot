@@ -13,7 +13,7 @@ public class DepartmentDetails {
 
     private Long id;
 
-    private String responsibleId;
+    private String responsibleNumber;
 
     private String name;
 

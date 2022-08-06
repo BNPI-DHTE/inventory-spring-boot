@@ -57,7 +57,7 @@ public class FileService {
             Responsible responsible = getResponsible(command);
             InventoryItem item = getInventoryItem(responsible, command);
             responsibleRepository.save(responsible);
-            log.debug("Responsible saved: " + responsible.getResponsibleId() + ", " + responsible.getName());
+            log.debug("Responsible saved: " + responsible.getResponsibleNumber() + ", " + responsible.getName());
             inventoryItemRepository.save(item);
             itemDetails.add(inventoryItemMapper.toInventoryItemShortDetails(item));
         }
@@ -69,7 +69,7 @@ public class FileService {
         Optional<InventoryItem> optionalItem = inventoryItemRepository.findByInventoryId(command.getInventoryItemID());
         if (optionalItem.isPresent()) {
             item = optionalItem.get();
-            if (!item.getResponsible().getResponsibleId().equals(responsible.getResponsibleId())) {
+            if (!item.getResponsible().getResponsibleNumber().equals(responsible.getResponsibleNumber())) {
                 throw new InvalidResponsibleException(item.getInventoryId());
             }
             if (item.getAmount() != Double.parseDouble(command.getAmount())) {
@@ -94,8 +94,8 @@ public class FileService {
     private Responsible getResponsible(TableCommand command) {
         Responsible responsible;
         List<Responsible> listOfPossibleResponsible = new ArrayList<>();
-        listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleId(command.getResponsiblePersonCode()));
-        listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleId(command.getWorkingPlace()));
+        listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleNumber(command.getResponsiblePersonCode()));
+        listOfPossibleResponsible.addAll(responsibleRepository.findAllByResponsibleNumber(command.getWorkingPlace()));
         log.debug("Size of possible responsible is: " + listOfPossibleResponsible.size());
         if (listOfPossibleResponsible.isEmpty()) {
             responsible = createResponsible(command);
@@ -111,7 +111,7 @@ public class FileService {
 
     private void validateResponsible(TableCommand command, Responsible responsible) {
         if (!responsible.getName().equals(command.getResponsiblePersonName()) && !responsible.getName().equals(command.getResponsibleDepartmentName())) {
-            throw new CorruptResponsibleException(responsible.getResponsibleId());
+            throw new CorruptResponsibleException(responsible.getResponsibleNumber());
         }
     }
 

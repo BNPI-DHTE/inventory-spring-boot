@@ -21,5 +21,5 @@ public class UpdateDepartmentCommand {
     private String name;
 
     @Size(min = 5, max = 150)
-    private String responsibleIdOfLeader;
+    private String responsibleNumberOfLeader;
 }

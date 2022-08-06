@@ -110,7 +110,7 @@ class ResponsibleControllerIT {
                 .exchange()
                 .expectBody(EmployeeDetails.class)
                 .value(employeeDetails -> assertEquals("janeSmithDoe@mail.com", employeeDetails.getEmail()))
-                .value(employeeDetails -> assertEquals("001", employeeDetails.getResponsibleId()));
+                .value(employeeDetails -> assertEquals("001", employeeDetails.getResponsibleNumber()));
     }
 
     @Test
@@ -122,7 +122,7 @@ class ResponsibleControllerIT {
                 .expectBody(DepartmentDetails.class)
                 .value(departmentDto -> assertEquals("joeDoe@mail.com", departmentDto.getLeaderEmail()))
                 .value(departmentDto -> assertEquals("Human Resources Department", departmentDto.getName()))
-                .value(departmentDto -> assertEquals("006", departmentDto.getResponsibleId()));
+                .value(departmentDto -> assertEquals("006", departmentDto.getResponsibleNumber()));
     }
 
     @Test

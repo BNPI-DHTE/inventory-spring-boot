@@ -17,7 +17,7 @@ public class SaveEmployeeCommand {
 
     @NotBlank
     @Size(max = 50)
-    private String responsibleId;
+    private String responsibleNumber;
 
     @NotBlank
     @Size(min = 5, max = 150)

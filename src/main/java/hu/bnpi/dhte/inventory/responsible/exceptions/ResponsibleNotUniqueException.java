@@ -10,6 +10,6 @@ public class ResponsibleNotUniqueException extends AbstractThrowableProblem {
         super(URI.create("responsible/not-unique"),
                 "Responsible not unique",
                 Status.BAD_REQUEST,
-                String.format("Unable to decide responsible by responsible IDs: employee ID: %s, department ID %s", responsiblePersonCode, workingPlace));
+                String.format("Unable to decide responsible by responsible numbers: employee ID: %s, department ID %s", responsiblePersonCode, workingPlace));
     }
 }

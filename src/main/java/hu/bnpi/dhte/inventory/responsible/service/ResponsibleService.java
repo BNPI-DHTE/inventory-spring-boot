@@ -51,14 +51,14 @@ public class ResponsibleService {
     }
 
     public EmployeeDetails saveEmployee(SaveEmployeeCommand command) {
-        Employee employee = new Employee(command.getResponsibleId(), command.getName(), command.getEmail());
+        Employee employee = new Employee(command.getResponsibleNumber(), command.getName(), command.getEmail());
         employeeRepository.save(employee);
         return mapper.toEmployeeDetails(employee);
     }
 
     public DepartmentDetails saveDepartment(SaveDepartmentCommand command) {
-        List<Employee> leader = getDepartmentLeader(command.getResponsibleIdOfLeader());
-        Department department = new Department(command.getResponsibleId(), command.getName(), leader.get(0));
+        List<Employee> leader = getDepartmentLeader(command.getResponsibleNumberOfLeader());
+        Department department = new Department(command.getResponsibleNumber(), command.getName(), leader.get(0));
         departmentRepository.save(department);
         return mapper.toDepartmentDetails(department);
     }
@@ -81,22 +81,22 @@ public class ResponsibleService {
         if (command.getName() != null && !command.getName().isBlank()) {
             department.setName(command.getName());
         }
-        if (command.getResponsibleIdOfLeader() != null && !command.getResponsibleIdOfLeader().isBlank()) {
-            List<Employee> leader = getDepartmentLeader(command.getResponsibleIdOfLeader());
+        if (command.getResponsibleNumberOfLeader() != null && !command.getResponsibleNumberOfLeader().isBlank()) {
+            List<Employee> leader = getDepartmentLeader(command.getResponsibleNumberOfLeader());
             if (leader.size() != 1) {
-                throw new EmployeeNotFoundException(command.getResponsibleIdOfLeader());
+                throw new EmployeeNotFoundException(command.getResponsibleNumberOfLeader());
             }
             department.setLeader(leader.get(0));
         }
         return mapper.toDepartmentDetails(department);
     }
 
-    private List<Employee> getDepartmentLeader(String responsibleId) {
-        List<Employee> leader = employeeRepository.findAllByResponsibleId(responsibleId).stream()
+    private List<Employee> getDepartmentLeader(String responsibleNumber) {
+        List<Employee> leader = employeeRepository.findAllByResponsibleNumber(responsibleNumber).stream()
                 .map(Employee.class::cast)
                 .toList();
         if (leader.size() != 1) {
-            throw new EmployeeNotFoundException(responsibleId);
+            throw new EmployeeNotFoundException(responsibleNumber);
         }
         return leader;
     }

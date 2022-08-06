@@ -25,8 +25,8 @@ public abstract class Responsible {
     private Long id;
 
     @NotBlank
-    @Column(name = "responsible_id", length = 50, nullable = false, unique = true)
-    private String responsibleId;
+    @Column(name = "responsible_number", length = 50, nullable = false, unique = true)
+    private String responsibleNumber;
 
     @NotBlank
     @Column(length = 150, nullable = false)
@@ -35,14 +35,14 @@ public abstract class Responsible {
     @OneToMany(mappedBy = "responsible")
     private List<InventoryItem> items = new ArrayList<>();
 
-    protected Responsible(String responsibleId, String name) {
-        this.responsibleId = responsibleId;
+    protected Responsible(String responsibleNumber, String name) {
+        this.responsibleNumber = responsibleNumber;
         this.name = name;
     }
 
-    protected Responsible(long id, String responsibleId, String name, List<InventoryItem> items) {
+    protected Responsible(long id, String responsibleNumber, String name, List<InventoryItem> items) {
         this.id = id;
-        this.responsibleId = responsibleId;
+        this.responsibleNumber = responsibleNumber;
         this.name = name;
         this.items = items;
     }

@@ -22,17 +22,17 @@ public class Department extends Responsible {
     @JoinColumn(name = "leader_id")
     private Employee leader;
 
-    public Department(long id, String responsibleId, String name, List<InventoryItem> items, Employee leader) {
-        super(id, responsibleId, name, items);
+    public Department(long id, String responsibleNumber, String name, List<InventoryItem> items, Employee leader) {
+        super(id, responsibleNumber, name, items);
         this.leader = leader;
     }
 
-    public Department(String responsibleId, String name, Employee leader) {
-        super(responsibleId, name);
+    public Department(String responsibleNumber, String name, Employee leader) {
+        super(responsibleNumber, name);
         this.leader = leader;
     }
 
-    public Department(String responsibleId, String name) {
-        super(responsibleId, name);
+    public Department(String responsibleNumber, String name) {
+        super(responsibleNumber, name);
     }
 }

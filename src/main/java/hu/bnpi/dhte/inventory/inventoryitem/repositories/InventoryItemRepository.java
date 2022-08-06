@@ -14,7 +14,7 @@ public interface InventoryItemRepository extends JpaRepository<InventoryItem, Lo
 
     Optional<InventoryItem> findByInventoryId(String inventoryId);
 
-    List<InventoryItem> findAllByResponsibleResponsibleId(String responsibleId);
+    List<InventoryItem> findAllByResponsibleResponsibleNumber(String responsibleNumber);
 
     @Query("select i from InventoryItem i where upper(i.responsible.name) like concat('%', upper(:responsibleName), '%') ")
     List<InventoryItem> findAllByResponsibleName(@Param("responsibleName") String responsibleName);

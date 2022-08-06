@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ResponsibleMapperTest {
+class ResponsibleMapperIT {
 
     private ResponsibleMapper mapper = Mappers.getMapper(ResponsibleMapper.class);
 
@@ -20,7 +20,7 @@ class ResponsibleMapperTest {
     void toEmployeeDtoTest() {
         Employee employee = new Employee(1L, "001","John Doe", new ArrayList<>(), "johndoe@mail.com");
         EmployeeDetails result = mapper.toEmployeeDetails(employee);
-        assertEquals("John Doe", employee.getName());
+        assertEquals("John Doe", result.getName());
     }
 
     @Test

@@ -129,8 +129,8 @@ public class InventoryItemService {
                 .orElseThrow(() -> new InventoryItemNotFoundException(inventoryId));
     }
 
-    public List<InventoryItemDetails> findAllByResponsibleId(String responsibleId) {
-        return inventoryItemRepository.findAllByResponsibleResponsibleId(responsibleId).stream()
+    public List<InventoryItemDetails> findAllByResponsibleNumber(String responsibleNumber) {
+        return inventoryItemRepository.findAllByResponsibleResponsibleNumber(responsibleNumber).stream()
                 .map(item -> mapper.toInventoryItemDetails(item))
                 .toList();
     }

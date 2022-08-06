@@ -26,17 +26,17 @@ public class Employee extends Responsible {
     @Column(length = 150)
     private String email;
 
-    public Employee(long id, String responsibleId, String name, List<InventoryItem> items, String email) {
-        super(id, responsibleId, name, items);
+    public Employee(long id, String responsibleNumber, String name, List<InventoryItem> items, String email) {
+        super(id, responsibleNumber, name, items);
         this.email = email;
     }
 
-    public Employee(String responsibleId, String name, String email) {
-        super(responsibleId, name);
+    public Employee(String responsibleNumber, String name, String email) {
+        super(responsibleNumber, name);
         this.email = email;
     }
 
-    public Employee(String responsibleId, String name) {
-        super(responsibleId, name);
+    public Employee(String responsibleNumber, String name) {
+        super(responsibleNumber, name);
     }
 }

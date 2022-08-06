@@ -21,7 +21,7 @@ public class UpdateEmployeeCommand {
 
     @NotBlank
     @Size(max = 50)
-    private String responsibleId;
+    private String responsibleNumber;
 
     @Size(min = 5, max = 150)
     private String name;
