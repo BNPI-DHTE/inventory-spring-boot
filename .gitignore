@@ -38,3 +38,4 @@ build/
 ### Docker volumes ###
 docker/db/
 docker/test-db/
+docker/keycloak/configuration/
