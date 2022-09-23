@@ -27,39 +27,39 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_PASSWORD: postgres
 
-  keycloak:
-    image: bitnami/keycloak:19
-    container_name: keycloak
-    restart: on-failure
-    ports:
-      - "8081:8080"
-      - "8443:8443"
-    volumes:
-      - ./keycloak/configuration/:/bitnami/keycloak/configuration/
-    environment:
-      KEYCLOAK_CREATE_ADMIN_USER: 'true'
-      KEYCLOAK_ADMIN_USER: root
-      KEYCLOAK_ADMIN_PASSWORD: root
-#      DB_VENDOR: postgres
-      KEYCLOAK_DATABASE_HOST: inventory-dev-database
-      KEYCLOAK_DATABASE_PORT: 5432
-      KEYCLOAK_DATABASE_NAME: keycloak
-      KEYCLOAK_DATABASE_SCHEMA: public
-      KEYCLOAK_DATABASE_USER: keycloak
-      KEYCLOAK_DATABASE_PASSWORD: keycloak
-      KEYCLOAK_HTTP_PORT: 8080
-      KEYCLOAK_HTTPS_PORT: 8443
-      KEYCLOAK_PRODUCTION: 'false'
-# In production use, you must set KEYCLOAK_PRODUCTION to true, and you have to also configure the following variables:
-#     KEYCLOAK_ENABLE_TLS: true
-#     Add following values as files to the container:
-#     KEYCLOAK_TLS_KEYSTORE_FILE: /opt/bitnami/keycloak/certs/keystore.jks
-#     KEYCLOAK_TLS_TRUSTSTORE_FILE: /opt/bitnami/keycloak/certs/truststore.jks
-#     KEYCLOAK_TLS_KEYSTORE_PASSWORD: someSecurePassword
-#     KEYCLOAK_TLS_TRUSTSTORE_PASSWORD: someSecurePassword
-      KEYCLOAK_EXTRA_ARGS: "--hostname-strict-https=false"
-    depends_on:
-      - inventory-dev-database
+#  keycloak:
+#    image: bitnami/keycloak:19
+#    container_name: keycloak
+#    restart: on-failure
+#    ports:
+#      - "8081:8080"
+#      - "8443:8443"
+#    volumes:
+#      - ./keycloak/configuration/:/bitnami/keycloak/configuration/
+#    environment:
+#      KEYCLOAK_CREATE_ADMIN_USER: 'true'
+#      KEYCLOAK_ADMIN_USER: root
+#      KEYCLOAK_ADMIN_PASSWORD: root
+##      DB_VENDOR: postgres
+#      KEYCLOAK_DATABASE_HOST: inventory-dev-database
+#      KEYCLOAK_DATABASE_PORT: 5432
+#      KEYCLOAK_DATABASE_NAME: keycloak
+#      KEYCLOAK_DATABASE_SCHEMA: public
+#      KEYCLOAK_DATABASE_USER: keycloak
+#      KEYCLOAK_DATABASE_PASSWORD: keycloak
+#      KEYCLOAK_HTTP_PORT: 8080
+#      KEYCLOAK_HTTPS_PORT: 8443
+#      KEYCLOAK_PRODUCTION: 'false'
+## In production use, you must set KEYCLOAK_PRODUCTION to true, and you have to also configure the following variables:
+##     KEYCLOAK_ENABLE_TLS: true
+##     Add following values as files to the container:
+##     KEYCLOAK_TLS_KEYSTORE_FILE: /opt/bitnami/keycloak/certs/keystore.jks
+##     KEYCLOAK_TLS_TRUSTSTORE_FILE: /opt/bitnami/keycloak/certs/truststore.jks
+##     KEYCLOAK_TLS_KEYSTORE_PASSWORD: someSecurePassword
+##     KEYCLOAK_TLS_TRUSTSTORE_PASSWORD: someSecurePassword
+#      KEYCLOAK_EXTRA_ARGS: "--hostname-strict-https=false"
+#    depends_on:
+#      - inventory-dev-database
 
   inventory-app:
     build:
@@ -76,5 +76,5 @@ services:
       SPRING_DATASOURCE_PASSWORD: inventory
     depends_on:
       - inventory-dev-database
-      - keycloak
+#      - keycloak
     entrypoint: ['/opt/bin/wait-for-it.sh', '-t', '120', 'inventory-dev-database:5432', '--', 'java', 'org.springframework.boot.loader.JarLauncher']
