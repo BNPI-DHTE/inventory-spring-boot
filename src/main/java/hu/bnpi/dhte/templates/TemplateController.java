@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class TemplateController {
 
-    @GetMapping("/login")
+    @GetMapping("login")
     public String getLoginView() {
         return "login";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("logout")
     public String getLogoutView() {
         return "logout";
     }
 
-    @GetMapping("/homepage")
+    @GetMapping("homepage")
     public String getHomepageView() {
         return "homepage";
     }
