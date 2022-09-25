@@ -106,7 +106,7 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.2.2</version>
+            <version>5.2.3</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.tika</groupId>-->
@@ -233,7 +233,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.40.1</version>
+                <version>0.40.2</version>
                 <configuration>
                     <verbose>true</verbose>
                     <images>
@@ -267,7 +267,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.17.0</version>
+                <version>3.19.0</version>
                 <executions>
                     <execution>
                         <id>default-check</id>
@@ -355,7 +355,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
             </plugin>
         </plugins>
     </reporting>
