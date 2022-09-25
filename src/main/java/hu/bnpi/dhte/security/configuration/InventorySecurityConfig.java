@@ -2,6 +2,7 @@ package hu.bnpi.dhte.security.configuration;
 
 import hu.bnpi.dhte.security.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,6 +23,8 @@ public class InventorySecurityConfig {
     private final PasswordEncoder passwordEncoder;
 
     private final AuthService authService;
+    @Value("${inventory.security.tokens.remember-me.key}")
+    private String rememberMeTokenKey;
 
     @Autowired
     public InventorySecurityConfig(PasswordEncoder passwordEncoder, AuthService authService) {
@@ -43,7 +46,7 @@ public class InventorySecurityConfig {
                     .usernameParameter("username").and()
                 .rememberMe()
                     .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-                    .key("somethingVerySecured")
+                    .key(rememberMeTokenKey)
                     .rememberMeParameter("remember-me").and()
                 .logout()
                     .logoutUrl("/logout")
